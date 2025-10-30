@@ -50,6 +50,44 @@
         font-size: 0.9rem;
       }
 
+      .callout {
+        display: none;
+        margin-top: 1.5rem;
+        padding: 1rem 1.25rem;
+        border-radius: var(--radius-md);
+        border: 1px solid transparent;
+        font-weight: 500;
+        line-height: 1.5;
+      }
+
+      .callout.show {
+        display: block;
+      }
+
+      .callout-info {
+        background: rgba(59, 130, 246, 0.12);
+        border-color: rgba(59, 130, 246, 0.3);
+        color: var(--color-primary-dark);
+      }
+
+      .callout-success {
+        background: rgba(34, 197, 94, 0.12);
+        border-color: rgba(34, 197, 94, 0.3);
+        color: #047857;
+      }
+
+      .callout-warning {
+        background: rgba(250, 204, 21, 0.12);
+        border-color: rgba(250, 204, 21, 0.3);
+        color: #b45309;
+      }
+
+      .callout-error {
+        background: rgba(248, 113, 113, 0.12);
+        border-color: rgba(248, 113, 113, 0.3);
+        color: #b91c1c;
+      }
+
       @media (max-width: 960px) {
         .tool-layout {
           grid-template-columns: 1fr;
@@ -117,6 +155,7 @@
               <label for="blog-url" style="display: block; font-weight: 600; margin-bottom: 0.75rem">URL bài viết</label>
               <input id="blog-url" type="url" placeholder="https://example.com/bai-viet" required />
               <button class="btn btn-primary" id="crawl-btn" style="margin-top: 1rem">🚀 Crawl nội dung</button>
+              <div id="feedback" class="callout" role="status" aria-live="polite"></div>
               <label for="result" style="display: block; font-weight: 600; margin: 2rem 0 0.75rem">Kết quả</label>
               <textarea id="result" placeholder="Nội dung Markdown sẽ xuất hiện tại đây" readonly></textarea>
             </section>
@@ -130,43 +169,111 @@
     </footer>
 
     <script>
+      const quotaState = document.getElementById('quota-state');
+      const crawlBtn = document.getElementById('crawl-btn');
+      const blogUrlInput = document.getElementById('blog-url');
+      const resultBox = document.getElementById('result');
+      const feedback = document.getElementById('feedback');
+
       let quota = 0;
 
-      document.getElementById('crawl-btn').addEventListener('click', () => {
-        crawlBlog();
-      });
-
+      document.getElementById('crawl-btn').addEventListener('click', crawlBlog);
       document.getElementById('unlock-btn').addEventListener('click', () => {
         quota = 1;
-        document.getElementById('quota-state').textContent = '✅ Đã mở khóa 1 lượt crawl miễn phí';
-        document.getElementById('quota-state').style.background = 'rgba(34,197,94,0.12)';
-        document.getElementById('quota-state').style.color = '#047857';
+        updateQuotaState();
+        showFeedback('success', 'Đã mở khóa 1 lượt crawl miễn phí. Hãy nhập URL và bắt đầu thôi!');
       });
 
+      function updateQuotaState() {
+        if (quota > 0) {
+          quotaState.textContent = `✅ Còn ${quota} lượt crawl miễn phí`;
+          quotaState.style.background = 'rgba(34,197,94,0.12)';
+          quotaState.style.color = '#047857';
+        } else {
+          quotaState.textContent = '🔒 Chưa mở khóa lượt crawl';
+          quotaState.style.background = 'rgba(59, 130, 246, 0.12)';
+          quotaState.style.color = 'var(--color-primary-dark)';
+        }
+      }
+
+      function showFeedback(type, message) {
+        feedback.textContent = message;
+        feedback.className = `callout callout-${type} show`;
+      }
+
+      function clearFeedback() {
+        feedback.textContent = '';
+        feedback.className = 'callout';
+      }
+
+      function setLoading(isLoading) {
+        crawlBtn.disabled = isLoading;
+        crawlBtn.textContent = isLoading ? 'Đang crawl...' : '🚀 Crawl nội dung';
+        crawlBtn.setAttribute('aria-busy', String(isLoading));
+      }
+
       async function crawlBlog() {
-        const url = document.getElementById('blog-url').value.trim();
-        if (!url) return alert("Nhập URL cần crawl!");
-        if (quota <= 0) return alert("Hết lượt miễn phí!");
-
-        document.getElementById('crawl-btn').disabled = true;
-        document.getElementById('crawl-btn').textContent = "Đang crawl...";
-
-        try {
-          const res = await fetch("https://api.ngoctay.io.vn/crawl", {
-            method: "POST",
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({url})
-          });
-          const data = await res.json();
-          if (data.error) alert("❌ " + data.error);
-          else document.getElementById('result').value = data.content_md || data.content_html || "Không có nội dung.";
-        } catch (e) {
-          alert("Lỗi kết nối API: " + e);
+        const url = blogUrlInput.value.trim();
+        if (!url) {
+          showFeedback('warning', 'Vui lòng nhập URL hợp lệ trước khi crawl.');
+          blogUrlInput.focus();
+          return;
         }
 
-        document.getElementById('crawl-btn').disabled = false;
-        document.getElementById('crawl-btn').textContent = "🚀 Crawl nội dung";
+        if (quota <= 0) {
+          showFeedback('warning', 'Bạn cần mở khóa video để nhận lượt crawl miễn phí.');
+          return;
+        }
+
+        clearFeedback();
+        setLoading(true);
+        resultBox.value = '';
+
+        try {
+          const res = await fetch('https://api.ngoctay.io.vn/crawl', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url }),
+          });
+
+          const contentType = res.headers.get('content-type') || '';
+          const isJson = contentType.includes('application/json');
+          const data = isJson ? await res.json() : null;
+
+          if (!res.ok) {
+            const message = data?.error || `Máy chủ trả về mã lỗi ${res.status}`;
+            showFeedback('error', `Không thể crawl bài viết: ${message}`);
+            console.error('Crawl request failed', { status: res.status, data });
+            return;
+          }
+
+          if (!data) {
+            showFeedback('error', 'Máy chủ trả về phản hồi không hợp lệ.');
+            console.error('Unexpected response format', { contentType });
+            return;
+          }
+
+          const content = data.content_md || data.content_html;
+          if (!content) {
+            showFeedback('warning', 'API không trả về nội dung để hiển thị.');
+            console.warn('Empty content response', data);
+            return;
+          }
+
+          resultBox.value = content;
+          quota = Math.max(0, quota - 1);
+          updateQuotaState();
+          showFeedback('success', 'Đã lấy được nội dung bài viết. Bạn có thể sao chép kết quả bên dưới.');
+        } catch (error) {
+          const message = error?.message || error;
+          showFeedback('error', `Lỗi kết nối API: ${message}`);
+          console.error('Network error when calling crawl API', error);
+        } finally {
+          setLoading(false);
+        }
       }
+
+      updateQuotaState();
     </script>
   </body>
 </html>
