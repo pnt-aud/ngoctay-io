@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass
-from typing import Dict, Iterable, Optional
+from typing import Dict, Iterable, Optional, Set
 from urllib.parse import urlparse
 
 import requests
@@ -101,16 +101,58 @@ def _load_selector_list(value: Optional[Iterable[str]]) -> Iterable[str]:
     return result
 
 
+def _collect_allowed_domains(selectors: Dict[str, Dict[str, Iterable[str]]]) -> Set[str]:
+    allowed: Set[str] = set()
+    special_keys = {"_allowed_domains", "allowed_domains"}
+    for key, value in selectors.items():
+        if isinstance(value, dict) and key not in special_keys:
+            allowed.add(key.lower())
+
+    extra = selectors.get("_allowed_domains") or selectors.get("allowed_domains")
+    if isinstance(extra, (list, tuple, set)):
+        for item in extra:
+            if item:
+                allowed.add(str(item).lower())
+    elif isinstance(extra, str):
+        allowed.add(extra.lower())
+
+    return allowed
+
+
+def _is_trusted_host(hostname: Optional[str], allowed_domains: Set[str]) -> bool:
+    if not hostname:
+        return False
+
+    normalized = hostname.lower().rstrip(".")
+    for domain in allowed_domains:
+        domain = domain.strip().lower().rstrip(".")
+        if not domain:
+            continue
+        if normalized == domain or normalized.endswith(f".{domain}"):
+            return True
+    return False
+
+
 def extract_article(url: str, selectors: Dict[str, Dict[str, Iterable[str]]]) -> Dict[str, str]:
     if not url:
         raise ExtractionError("URL is required")
+
+    parsed_url = urlparse(url)
+    if parsed_url.scheme not in {"http", "https"}:
+        raise ExtractionError("Unsupported URL scheme")
+
+    allowed_domains = _collect_allowed_domains(selectors)
+    if not allowed_domains:
+        raise ExtractionError("No trusted domains configured for extraction")
+    if not _is_trusted_host(parsed_url.hostname, allowed_domains):
+        raise ExtractionError("URL is not in the trusted allowlist")
 
     headers = {"User-Agent": USER_AGENT}
     response = requests.get(url, headers=headers, timeout=15)
     response.raise_for_status()
 
     soup = BeautifulSoup(response.text, "html.parser")
-    domain = urlparse(url).netloc
+    domain = parsed_url.netloc
     domain_selectors = selectors.get(domain, {})
 
     title = _first_match(
