@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crawl Blog – PyLab</title>
+    <meta
+      name="description"
+      content="Công cụ crawl nội dung blog dành cho cộng đồng PyLab. Xem video hướng dẫn để mở khóa lượt crawl miễn phí."
+    />
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <style>
+      .tool-layout {
+        display: grid;
+        gap: clamp(2rem, 5vw, 3rem);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+
+      .video-card,
+      .form-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: var(--radius-lg);
+        padding: clamp(2rem, 5vw, 3rem);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(226, 232, 240, 0.7);
+      }
+
+      .video-card iframe {
+        width: 100%;
+        height: 315px;
+        border: 0;
+        border-radius: 1rem;
+      }
+
+      .form-card textarea {
+        min-height: 320px;
+        resize: vertical;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.85rem;
+        border-radius: 999px;
+        background: rgba(59, 130, 246, 0.12);
+        color: var(--color-primary-dark);
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 960px) {
+        .tool-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .video-card iframe {
+          height: 240px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <nav class="nav">
+          <a class="brand" href="/">PyLab</a>
+          <div class="nav-links">
+            <a href="/tools/crawl-blog/" aria-current="page">Crawl Blog</a>
+            <a href="/contact.html">Liên hệ</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" style="padding-block: clamp(4rem, 9vw, 6rem)">
+        <div class="container">
+          <span class="eyebrow">Công cụ dành cho cộng đồng</span>
+          <h1>Crawl nội dung blog trong vài giây</h1>
+          <p class="hero-subtitle">
+            Xem video hướng dẫn bên dưới để mở khóa lượt crawl miễn phí mỗi ngày. Công cụ hỗ trợ lấy nội dung từ hầu hết
+            các trang báo/blog phổ biến tại Việt Nam.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="tool-layout">
+            <aside class="video-card">
+              <div class="status-pill" id="quota-state">🔒 Chưa mở khóa lượt crawl</div>
+              <h2>Xem video hướng dẫn</h2>
+              <p>
+                Hoàn thành video YouTube sau để mở khóa 1 lượt crawl miễn phí. Nhấn vào nút xác nhận sau khi video kết
+                thúc.
+              </p>
+              <div style="margin-top: 1.5rem">
+                <iframe
+                  id="tutorial-video"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  title="Hướng dẫn sử dụng công cụ crawl blog"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <button class="btn btn-primary" style="margin-top: 1.5rem" id="unlock-btn">Tôi đã xem xong video</button>
+              <p class="muted" style="margin-top: 1rem">
+                Sau khi mở khóa, bạn có thể nhập URL bài viết và nhấn "Crawl nội dung" để lấy dữ liệu định dạng Markdown.
+              </p>
+            </aside>
+
+            <section class="form-card">
+              <h2>Nhập URL bài viết</h2>
+              <p>Chúng tôi sử dụng API chính thức tại <code>https://api.ngoctay.io.vn/crawl</code>.</p>
+              <label for="blog-url" style="display: block; font-weight: 600; margin-bottom: 0.75rem">URL bài viết</label>
+              <input id="blog-url" type="url" placeholder="https://example.com/bai-viet" required />
+              <button class="btn btn-primary" id="crawl-btn" style="margin-top: 1rem">🚀 Crawl nội dung</button>
+              <label for="result" style="display: block; font-weight: 600; margin: 2rem 0 0.75rem">Kết quả</label>
+              <textarea id="result" placeholder="Nội dung Markdown sẽ xuất hiện tại đây" readonly></textarea>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">© 2025 <strong>PyLab</strong> – Một dự án của ngoctay.io.vn</div>
+    </footer>
+
+    <script>
+      let quota = 0;
+
+      document.getElementById('crawl-btn').addEventListener('click', () => {
+        crawlBlog();
+      });
+
+      document.getElementById('unlock-btn').addEventListener('click', () => {
+        quota = 1;
+        document.getElementById('quota-state').textContent = '✅ Đã mở khóa 1 lượt crawl miễn phí';
+        document.getElementById('quota-state').style.background = 'rgba(34,197,94,0.12)';
+        document.getElementById('quota-state').style.color = '#047857';
+      });
+
+      async function crawlBlog() {
+        const url = document.getElementById('blog-url').value.trim();
+        if (!url) return alert("Nhập URL cần crawl!");
+        if (quota <= 0) return alert("Hết lượt miễn phí!");
+
+        document.getElementById('crawl-btn').disabled = true;
+        document.getElementById('crawl-btn').textContent = "Đang crawl...";
+
+        try {
+          const res = await fetch("https://api.ngoctay.io.vn/crawl", {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({url})
+          });
+          const data = await res.json();
+          if (data.error) alert("❌ " + data.error);
+          else document.getElementById('result').value = data.content_md || data.content_html || "Không có nội dung.";
+        } catch (e) {
+          alert("Lỗi kết nối API: " + e);
+        }
+
+        document.getElementById('crawl-btn').disabled = false;
+        document.getElementById('crawl-btn').textContent = "🚀 Crawl nội dung";
+      }
+    </script>
+  </body>
+</html>
