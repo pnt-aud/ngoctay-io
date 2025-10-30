@@ -54,9 +54,11 @@
       <section class="card">
         <h2 style="margin-top:0">1) Xem video để mở khóa</h2>
         <div class="yt-wrap">
-          <!-- TODO: thay YOUR_VIDEO_ID bằng video hướng dẫn của bạn -->
-          <iframe id="yt-player" src="https://www.youtube.com/embed/YOUR_VIDEO_ID?enablejsapi=1"
-            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+          <!-- DEV: cập nhật data-video-id với video hướng dẫn của bạn -->
+          <iframe id="yt-player" data-video-id="dQw4w9WgXcQ"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
           </iframe>
         </div>
         <div class="actions" style="margin-top:12px">
@@ -91,6 +93,7 @@
         <button id="copy-btn">📋 Copy kết quả</button>
         <button id="download-btn">⬇️ Tải .txt</button>
       </div>
+      <span id="crawl-status" class="pill warn" style="display:none"></span>
       <small class="hint">Lưu ý: Một số website chặn CORS. Nếu lỗi, hãy dùng proxy (ví dụ Cloudflare Worker) – hướng dẫn ở dưới.</small>
 
       <textarea id="result" placeholder="Nội dung sẽ hiện tại đây…"></textarea>
@@ -139,6 +142,10 @@ export default {
       unlocked: "nt_unlocked",
       watched: "nt_watched_sec"
     };
+    const YT_IFRAME = document.querySelector('#yt-player');
+    const CONFIG = {
+      videoId: YT_IFRAME?.dataset.videoId?.trim() || "",
+    };
 
     // ===== State =====
     let watchTime = 0, watchInterval = null;
@@ -153,14 +160,32 @@ export default {
     const updateQuotaUI = () => { $("#quota-left").textContent = quota; };
 
     // ===== YouTube IFrame API Loader =====
-    (function loadYT(){
+    (function initYoutube(){
+      if (!YT_IFRAME || !CONFIG.videoId){
+        if (YT_IFRAME){
+          const replacement = document.createElement('div');
+          replacement.className = 'pill err';
+          replacement.textContent = 'Thiếu video hướng dẫn. Cập nhật data-video-id cho #yt-player.';
+          YT_IFRAME.replaceWith(replacement);
+        }
+        return;
+      }
+
+      const origin = (window.location.origin && window.location.origin !== 'null')
+        ? `&origin=${encodeURIComponent(window.location.origin)}`
+        : '';
+      const src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(CONFIG.videoId)}?enablejsapi=1&rel=0&modestbranding=1${origin}`;
+      YT_IFRAME.src = src;
+
       const tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      document.body.appendChild(tag);
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScript = document.getElementsByTagName('script')[0];
+      firstScript.parentNode.insertBefore(tag, firstScript);
     })();
 
     let player;
     window.onYouTubeIframeAPIReady = function(){
+      if (!YT_IFRAME || !CONFIG.videoId) return;
       player = new YT.Player('yt-player', {
         events: { 'onStateChange': onPlayerStateChange }
       });
@@ -235,50 +260,124 @@ export default {
       let title = doc.querySelector("h1, h1.entry-title, .post-title, .article-title")?.textContent?.trim() || "";
       const paragraphs = Array.from(doc.querySelectorAll("article p, .post-content p, .entry-content p, main p, .content p, p"));
       const texts = paragraphs.map(p => p.textContent.trim()).filter(Boolean);
-      const content = texts.join("\\n\\n");
+      const content = texts.join("\n\n");
       if (!title) title = (doc.title || "").trim();
       return { title, content };
+    }
+
+    function setCrawlStatus(message, state = "warn"){
+      const el = $("#crawl-status");
+      if (!el) return;
+      if (!message){
+        el.style.display = "none";
+        el.textContent = "";
+        return;
+      }
+      el.style.display = "inline-flex";
+      el.textContent = message;
+      el.className = `pill ${state}`;
+    }
+
+    function sanitizeUrl(raw){
+      let working = raw.trim();
+      if (!working) return null;
+      try {
+        if (!/^https?:/i.test(working)) working = `https://${working}`;
+        const url = new URL(working);
+        const alternates = [];
+        if (location.protocol === "https:" && url.protocol === "http:"){
+          alternates.push(working.replace(/^http:/i, "https:"));
+        }
+        return { primary: url.href, alternates };
+      } catch (err){
+        console.warn("sanitizeUrl error", err);
+        return null;
+      }
+    }
+
+    function buildJinaUrl(target){
+      const parsed = new URL(target);
+      const clean = target.replace(/^https?:\/\//i, "");
+      const prefix = parsed.protocol === "https:" ? "https://r.jina.ai/https://" : "https://r.jina.ai/http://";
+      return prefix + clean;
+    }
+
+    async function tryFetchSequence(urls, fetcher){
+      let lastError;
+      for (const candidate of urls){
+        try {
+          return await fetcher(candidate);
+        } catch (err){
+          lastError = err;
+        }
+      }
+      throw lastError;
+    }
+
+    function applyExtraction(html, statusMessage){
+      const { title, content } = extractContent(html);
+      const finalText = (title ? (title + "\n\n") : "") + content;
+      $("#result").value = finalText || "[Không trích xuất được nội dung]";
+      quota = Math.max(0, quota - 1);
+      localStorage.setItem(LS_KEYS.quota, String(quota));
+      updateQuotaUI();
+      setCrawlStatus(statusMessage, "ok");
     }
 
     $("#crawl-btn").addEventListener("click", async () => {
       if (!unlocked) return alert("Hãy mở khóa công cụ trước.");
       if (quota <= 0) return alert("Bạn đã hết lượt miễn phí.");
 
-      const url = $("#blog-url").value.trim();
-      if (!url) return alert("Nhập URL hợp lệ.");
+      const rawUrl = $("#blog-url").value;
+      const sanitized = sanitizeUrl(rawUrl || "");
+      if (!sanitized) return alert("Nhập URL hợp lệ (ví dụ: https://example.com).");
 
       $("#crawl-btn").disabled = true;
       $("#crawl-btn").textContent = "Đang crawl…";
+      setCrawlStatus("Đang crawl nội dung…", "warn");
 
-      try{
-        let html = null;
-        // Try direct first
-        try{
-          html = await directFetch(url);
-        } catch(err){
-          // Try proxy
-          const proxyBase = $("#proxy-url").value.trim();
-          if (!proxyBase) throw err;
-          html = await proxyFetch(proxyBase, url);
+      try {
+        try {
+          const directTargets = [sanitized.primary, ...sanitized.alternates];
+          const html = await tryFetchSequence(directTargets, directFetch);
+          applyExtraction(html, "Crawl thành công trực tiếp.");
+          return;
+        } catch (directErr){
+          console.error("Direct fetch failed", directErr);
         }
 
-        const { title, content } = extractContent(html);
-        const finalText = (title ? (title + "\\n\\n") : "") + content;
-        $("#result").value = finalText || "[Không trích xuất được nội dung]";
+        const proxyBase = $("#proxy-url").value.trim();
+        if (proxyBase){
+          try {
+            const html = await tryFetchSequence([sanitized.primary], url => proxyFetch(proxyBase, url));
+            applyExtraction(html, "Thành công thông qua proxy tuỳ chỉnh.");
+            return;
+          } catch (proxyErr){
+            console.error("Custom proxy failed", proxyErr);
+          }
+        }
 
-        // decrease quota
-        quota = Math.max(0, quota - 1);
-        localStorage.setItem(LS_KEYS.quota, String(quota));
-        updateQuotaUI();
+        try {
+          const jinaUrl = buildJinaUrl(sanitized.primary);
+          const html = await directFetch(jinaUrl);
+          applyExtraction(html, "Thành công thông qua proxy dự phòng (r.jina.ai).");
+          return;
+        } catch (fallbackErr){
+          console.error("Fallback proxy failed", fallbackErr);
+          throw fallbackErr;
+        }
       } catch (e){
         console.error(e);
-        alert("Lỗi crawl. Có thể do CORS. Hãy cấu hình Proxy và thử lại.");
+        setCrawlStatus("Lỗi: " + (e?.message || "Không thể lấy nội dung"), "err");
+        alert("Lỗi crawl. Kiểm tra lại URL hoặc proxy và thử lại.");
       } finally {
         $("#crawl-btn").disabled = false;
         $("#crawl-btn").textContent = "🚀 Crawl nội dung";
+        if (!$("#result").value){
+          setCrawlStatus("Chưa có nội dung. Kiểm tra URL/proxy rồi thử lại.", "warn");
+        }
       }
     });
-
     // Copy & Download
     $("#copy-btn").addEventListener("click", async () => {
       const text = $("#result").value;
