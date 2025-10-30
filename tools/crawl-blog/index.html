@@ -26,11 +26,41 @@
         border: 1px solid rgba(226, 232, 240, 0.7);
       }
 
-      .video-card iframe {
+      .video-frame {
+        position: relative;
         width: 100%;
-        height: 315px;
+        padding-top: 56.25%;
+        min-height: 280px;
+        border-radius: 1rem;
+        overflow: hidden;
+      }
+
+      #tutorial-video,
+      .video-frame iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
         border: 0;
         border-radius: 1rem;
+      }
+
+      .form-card input,
+      .form-card textarea {
+        width: 100%;
+        font: inherit;
+        padding: 0.9rem 1rem;
+        border-radius: 0.85rem;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        background: rgba(248, 250, 252, 0.7);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .form-card input:focus,
+      .form-card textarea:focus {
+        outline: none;
+        border-color: rgba(37, 99, 235, 0.55);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
       }
 
       .form-card textarea {
@@ -88,13 +118,61 @@
         color: #b91c1c;
       }
 
+      .video-fallback {
+        display: none;
+        margin-top: 1.25rem;
+        padding: 1.25rem;
+        border-radius: var(--radius-md);
+        background: rgba(248, 113, 113, 0.08);
+        border: 1px solid rgba(248, 113, 113, 0.25);
+        color: #b91c1c;
+      }
+
+      .video-fallback.show {
+        display: block;
+      }
+
+      .video-fallback a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        margin-top: 0.75rem;
+        font-weight: 600;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .video-fallback a::after {
+        content: '↗';
+        font-size: 0.9em;
+      }
+
+      .video-fallback button {
+        margin-top: 0.85rem;
+      }
+
       @media (max-width: 960px) {
         .tool-layout {
           grid-template-columns: 1fr;
         }
 
-        .video-card iframe {
-          height: 240px;
+        .video-frame {
+          min-height: 240px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .video-card,
+        .form-card {
+          padding: 1.75rem;
+        }
+
+        .video-frame {
+          min-height: 200px;
+        }
+
+        .form-card textarea {
+          min-height: 200px;
         }
       }
     </style>
@@ -131,21 +209,36 @@
               <div class="status-pill" id="quota-state">🔒 Chưa mở khóa lượt crawl</div>
               <h2>Xem video hướng dẫn</h2>
               <p>
-                Hoàn thành video YouTube sau để mở khóa 1 lượt crawl miễn phí. Nhấn vào nút xác nhận sau khi video kết
-                thúc.
+                Hoàn thành video YouTube sau để mở khóa lượt crawl miễn phí. Thời lượng xem sẽ được tính tự động ngay
+                trên trang này.
+              </p>
+              <p class="muted" style="margin-top: 0.75rem">
+                Bạn không cần kết nối API riêng với kênh YouTube – chỉ cần nhúng video hướng dẫn bên dưới. Chúng tôi sử
+                dụng iframe chính thức của YouTube và theo dõi thời lượng xem để mở khóa lượt crawl.
               </p>
               <div style="margin-top: 1.5rem">
-                <iframe
-                  id="tutorial-video"
-                  src="https://www.youtube.com/watch?v=hUoq2ELzIyA"
-                  title="Hướng dẫn sử dụng công cụ crawl blog"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
+                <div class="video-frame">
+                  <div
+                    id="tutorial-video"
+                    role="presentation"
+                    aria-label="Hướng dẫn sử dụng công cụ crawl blog"
+                    data-video-id="hUoq2ELzIyA"
+                  ></div>
+                </div>
               </div>
-              <button class="btn btn-primary" style="margin-top: 1.5rem" id="unlock-btn">Tôi đã xem xong video</button>
+              <p class="muted" id="watch-progress" style="margin-top: 1rem">Đang kết nối tới YouTube...</p>
+              <div class="video-fallback" id="video-fallback" role="alert" aria-live="polite" hidden>
+                Video YouTube đang gặp sự cố khi tải trong trình duyệt này.
+                <br />
+                <a href="https://www.youtube.com/watch?v=hUoq2ELzIyA" target="_blank" rel="noopener noreferrer">Mở video trực tiếp trên
+                  YouTube</a>
+                <button class="btn btn-secondary" type="button" id="manual-unlock-btn" hidden>
+                  Tôi đã xem video trên YouTube
+                </button>
+              </div>
               <p class="muted" style="margin-top: 1rem">
-                Sau khi mở khóa, bạn có thể nhập URL bài viết và nhấn "Crawl nội dung" để lấy dữ liệu định dạng Markdown.
+                Sau khi mở khóa, mỗi lượt crawl xử lý tối đa 30 bài blog. Bạn có 3 lượt miễn phí sau khi xem đủ 30 giây
+                video.
               </p>
             </aside>
 
@@ -174,25 +267,228 @@
       const blogUrlInput = document.getElementById('blog-url');
       const resultBox = document.getElementById('result');
       const feedback = document.getElementById('feedback');
+      const tutorialVideoContainer = document.getElementById('tutorial-video');
+      const videoFallback = document.getElementById('video-fallback');
+      const watchProgress = document.getElementById('watch-progress');
+      const manualUnlockBtn = document.getElementById('manual-unlock-btn');
 
-      let quota = 0;
+      const YOUTUBE_VIDEO_ID = tutorialVideoContainer?.dataset.videoId || 'hUoq2ELzIyA';
+      const YOUTUBE_WATCH_URL = `https://www.youtube.com/watch?v=${YOUTUBE_VIDEO_ID}`;
+      const YOUTUBE_EMBED_HOST = 'https://www.youtube-nocookie.com';
 
-      document.getElementById('crawl-btn').addEventListener('click', crawlBlog);
-      document.getElementById('unlock-btn').addEventListener('click', () => {
-        quota = 1;
+      const REQUIRED_WATCH_SECONDS = 30;
+      const CREDITS_REWARD = 3;
+      const POSTS_PER_CREDIT = 30;
+
+      let ytPlayer;
+      let youtubeReady = false;
+      let youtubeFallbackTimer;
+      let playbackInterval;
+      let watchedSeconds = 0;
+      let lastTrackedTime = 0;
+      let unlockGranted = false;
+      let remainingCredits = 0;
+
+      updateQuotaState();
+      updateWatchProgress();
+
+      if (tutorialVideoContainer) {
+        initYouTubePlayer();
+      }
+
+      crawlBtn.addEventListener('click', crawlBlog);
+
+      if (manualUnlockBtn) {
+        manualUnlockBtn.addEventListener('click', () => {
+          grantQuota('manual');
+          if (unlockGranted) {
+            manualUnlockBtn.disabled = true;
+            manualUnlockBtn.textContent = 'Đã xác nhận lượt xem';
+          }
+        });
+      }
+
+      function initYouTubePlayer() {
+        youtubeFallbackTimer = window.setTimeout(() => {
+          if (!youtubeReady) {
+            showVideoFallback();
+          }
+        }, 6000);
+
+        const createPlayer = () => {
+          if (ytPlayer || !tutorialVideoContainer) {
+            return;
+          }
+
+          ytPlayer = new YT.Player('tutorial-video', {
+            host: YOUTUBE_EMBED_HOST,
+            videoId: YOUTUBE_VIDEO_ID,
+            playerVars: {
+              rel: 0,
+              modestbranding: 1,
+              origin: window.location.origin,
+            },
+            events: {
+              onReady: handlePlayerReady,
+              onStateChange: handlePlayerStateChange,
+              onError: () => showVideoFallback(),
+            },
+          });
+        };
+
+        if (window.YT && typeof window.YT.Player === 'function') {
+          createPlayer();
+        } else {
+          const previous = window.onYouTubeIframeAPIReady;
+          window.onYouTubeIframeAPIReady = function () {
+            if (typeof previous === 'function') {
+              previous();
+            }
+            createPlayer();
+          };
+
+          if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+            const script = document.createElement('script');
+            script.src = 'https://www.youtube.com/iframe_api';
+            script.async = true;
+            document.head.appendChild(script);
+          }
+        }
+      }
+
+      function handlePlayerReady() {
+        youtubeReady = true;
+        if (youtubeFallbackTimer) {
+          window.clearTimeout(youtubeFallbackTimer);
+          youtubeFallbackTimer = null;
+        }
+        hideVideoFallback();
+        watchedSeconds = 0;
+        lastTrackedTime = 0;
+        updateWatchProgress();
+      }
+
+      function handlePlayerStateChange(event) {
+        if (!event || typeof YT === 'undefined') {
+          return;
+        }
+
+        switch (event.data) {
+          case YT.PlayerState.PLAYING:
+            hideVideoFallback();
+            startPlaybackTimer();
+            break;
+          case YT.PlayerState.PAUSED:
+          case YT.PlayerState.BUFFERING:
+            stopPlaybackTimer();
+            updateWatchProgress();
+            break;
+          case YT.PlayerState.ENDED:
+            stopPlaybackTimer();
+            watchedSeconds = REQUIRED_WATCH_SECONDS;
+            grantQuota();
+            break;
+          default:
+            break;
+        }
+      }
+
+      function startPlaybackTimer() {
+        if (!ytPlayer) {
+          return;
+        }
+
+        lastTrackedTime = ytPlayer.getCurrentTime() || 0;
+        stopPlaybackTimer();
+
+        playbackInterval = window.setInterval(() => {
+          const currentTime = ytPlayer.getCurrentTime();
+          if (typeof currentTime !== 'number' || Number.isNaN(currentTime)) {
+            return;
+          }
+
+          const delta = Math.max(0, currentTime - lastTrackedTime);
+          lastTrackedTime = currentTime;
+
+          if (delta > 0) {
+            watchedSeconds = Math.min(REQUIRED_WATCH_SECONDS, watchedSeconds + delta);
+            if (!unlockGranted && watchedSeconds >= REQUIRED_WATCH_SECONDS) {
+              grantQuota();
+            } else {
+              updateWatchProgress();
+            }
+          }
+        }, 500);
+      }
+
+      function stopPlaybackTimer() {
+        if (playbackInterval) {
+          window.clearInterval(playbackInterval);
+          playbackInterval = null;
+        }
+      }
+
+      function grantQuota(source = 'auto') {
+        if (unlockGranted) {
+          updateWatchProgress();
+          return;
+        }
+
+        unlockGranted = true;
+        watchedSeconds = REQUIRED_WATCH_SECONDS;
+        remainingCredits = CREDITS_REWARD;
+        stopPlaybackTimer();
+        hideVideoFallback();
         updateQuotaState();
-        showFeedback('success', 'Đã mở khóa 1 lượt crawl miễn phí. Hãy nhập URL và bắt đầu thôi!');
-      });
+        updateWatchProgress();
+
+        if (manualUnlockBtn) {
+          manualUnlockBtn.hidden = true;
+          manualUnlockBtn.disabled = true;
+        }
+
+        if (source === 'manual') {
+          showFeedback('info', 'Đã xác nhận lượt xem thủ công. Bạn có 3 lượt crawl miễn phí sẵn sàng.');
+        }
+      }
 
       function updateQuotaState() {
-        if (quota > 0) {
-          quotaState.textContent = `✅ Còn ${quota} lượt crawl miễn phí`;
+        if (remainingCredits > 0) {
+          const totalPosts = remainingCredits * POSTS_PER_CREDIT;
+          quotaState.textContent = `✅ Còn ${remainingCredits} lượt crawl miễn phí (tối đa ${totalPosts} bài blog)`;
           quotaState.style.background = 'rgba(34,197,94,0.12)';
           quotaState.style.color = '#047857';
         } else {
           quotaState.textContent = '🔒 Chưa mở khóa lượt crawl';
           quotaState.style.background = 'rgba(59, 130, 246, 0.12)';
           quotaState.style.color = 'var(--color-primary-dark)';
+        }
+      }
+
+      function updateWatchProgress() {
+        if (!watchProgress) {
+          return;
+        }
+
+        if (unlockGranted) {
+          const totalPosts = remainingCredits * POSTS_PER_CREDIT;
+          const summary = remainingCredits > 0 ? `${remainingCredits} lượt (${totalPosts} bài blog)` : '0 lượt miễn phí';
+          watchProgress.textContent = `🎉 Đã mở khóa ${CREDITS_REWARD} lượt crawl miễn phí, hiện còn ${summary}.`;
+          return;
+        }
+
+        if (!youtubeReady) {
+          watchProgress.textContent = 'Đang kết nối tới YouTube...';
+          return;
+        }
+
+        const watched = Math.min(REQUIRED_WATCH_SECONDS, Math.floor(watchedSeconds));
+        const remaining = Math.max(0, REQUIRED_WATCH_SECONDS - watched);
+
+        if (remaining > 0) {
+          watchProgress.textContent = `Đã xem ${watched}/${REQUIRED_WATCH_SECONDS} giây. Xem thêm ${remaining} giây nữa để mở khóa ${CREDITS_REWARD} lượt crawl (mỗi lượt ${POSTS_PER_CREDIT} bài blog).`;
+        } else {
+          watchProgress.textContent = 'Sắp mở khóa lượt crawl miễn phí...';
         }
       }
 
@@ -204,6 +500,38 @@
       function clearFeedback() {
         feedback.textContent = '';
         feedback.className = 'callout';
+      }
+
+      function showVideoFallback() {
+        if (videoFallback && !videoFallback.classList.contains('show')) {
+          videoFallback.hidden = false;
+          videoFallback.classList.add('show');
+          const link = videoFallback.querySelector('a');
+          if (link) {
+            link.href = YOUTUBE_WATCH_URL;
+          }
+          if (manualUnlockBtn && !unlockGranted) {
+            manualUnlockBtn.hidden = false;
+            manualUnlockBtn.disabled = false;
+            manualUnlockBtn.textContent = 'Tôi đã xem video trên YouTube';
+          }
+          if (watchProgress && !unlockGranted) {
+            watchProgress.textContent = 'Không thể phát video nhúng. Mở YouTube ở tab mới rồi nhấn nút xác nhận bên dưới để tiếp tục.';
+          }
+        }
+      }
+
+      function hideVideoFallback() {
+        if (videoFallback) {
+          videoFallback.classList.remove('show');
+          videoFallback.hidden = true;
+        }
+        if (manualUnlockBtn) {
+          manualUnlockBtn.hidden = true;
+          if (!unlockGranted) {
+            manualUnlockBtn.disabled = false;
+          }
+        }
       }
 
       function setLoading(isLoading) {
@@ -220,8 +548,8 @@
           return;
         }
 
-        if (quota <= 0) {
-          showFeedback('warning', 'Bạn cần mở khóa video để nhận lượt crawl miễn phí.');
+        if (remainingCredits <= 0) {
+          showFeedback('warning', 'Bạn cần xem đủ 30 giây video để nhận 3 lượt crawl miễn phí (mỗi lượt 30 bài blog).');
           return;
         }
 
@@ -261,9 +589,15 @@
           }
 
           resultBox.value = content;
-          quota = Math.max(0, quota - 1);
+          remainingCredits = Math.max(0, remainingCredits - 1);
           updateQuotaState();
-          showFeedback('success', 'Đã lấy được nội dung bài viết. Bạn có thể sao chép kết quả bên dưới.');
+          const totalPostsLeft = remainingCredits * POSTS_PER_CREDIT;
+          const suffix =
+            remainingCredits > 0
+              ? `Bạn còn ${remainingCredits} lượt (${totalPostsLeft} bài blog) miễn phí.`
+              : 'Bạn đã dùng hết lượt miễn phí. Xem lại video để nạp thêm lượt nhé!';
+          showFeedback('success', `Đã lấy được nội dung bài viết. ${suffix}`);
+          updateWatchProgress();
         } catch (error) {
           const message = error?.message || error;
           showFeedback('error', `Lỗi kết nối API: ${message}`);
@@ -274,6 +608,7 @@
       }
 
       updateQuotaState();
+      updateWatchProgress();
     </script>
   </body>
 </html>
