@@ -3,40 +3,317 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PyLab – Giải pháp doanh nghiệp</title>
-  <meta name="description" content="PyLab cung cấp các công cụ tự động hóa, AI, và giải pháp tối ưu quy trình cho doanh nghiệp Việt." />
-  <link rel="stylesheet" href="/assets/styles.css" />
+  <title>Crawl Blog Free – Ngọc Tây (Giai đoạn 1)</title>
+  <meta name="description" content="Xem video YouTube tối thiểu 10 giây để mở khóa công cụ crawl blog miễn phí (50 lượt/user)." />
+  <style>
+    :root{
+      --bg:#0b0f17; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --border:#1f2937; --primary:#60a5fa;
+      --accent:#34d399; --danger:#ef4444; --warning:#f59e0b;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;line-height:1.5}
+    header{max-width:960px;margin:32px auto 16px;padding:0 16px}
+    h1{margin:0 0 8px;font-size:28px}
+    p{margin:0 0 16px;color:var(--muted)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+    .container{max-width:960px;margin:0 auto;padding:0 16px 80px}
+    .row{display:grid;grid-template-columns:1fr;gap:16px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    button, input, textarea{border-radius:10px;border:1px solid var(--border);background:#0f172a;color:var(--text)}
+    button{padding:10px 14px;cursor:pointer}
+    button[disabled]{opacity:.5;cursor:not-allowed}
+    input[type=url]{width:100%;padding:12px 14px}
+    textarea{width:100%;min-height:260px;padding:12px 14px;resize:vertical}
+    small.hint{display:block;margin-top:6px;color:var(--muted)}
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--border);border-radius:999px;font-size:12px;color:var(--muted)}
+    .split{display:grid;grid-template-columns:1fr;gap:16px}
+    @media (min-width:900px){ .split{grid-template-columns:1.2fr .8fr} }
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;background:#0b1220;border:1px solid var(--border);padding:1px 6px;border-radius:6px;color:#cbd5e1}
+    .footer{opacity:.7;text-align:center;margin-top:24px}
+    .pill{border:1px dashed var(--border);padding:8px 12px;border-radius:999px;display:inline-block}
+    .ok{color:var(--accent)} .warn{color:var(--warning)} .err{color:var(--danger)}
+    .yt-wrap{position:relative;width:100%;padding-top:56.25%;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+    .yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%}
+    .quota{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .quota b{font-variant-numeric:tabular-nums}
+  </style>
 </head>
 <body>
-  <header class="container">
-    <nav class="nav">
-      <a class="brand" href="/">PyLab</a>
-      <div class="nav-links">
-        <a href="/tools/crawl-blog/">Crawl Blog</a>
-        <a href="/contact.html">Liên hệ</a>
-      </div>
-    </nav>
-    <section class="hero card">
-      <h1>PyLab – Giải pháp công nghệ cho doanh nghiệp</h1>
-      <p>Chúng tôi xây dựng công cụ giúp doanh nghiệp nhỏ hoạt động hiệu quả như doanh nghiệp lớn: automation, AI và kết nối dữ liệu.</p>
-      <div class="actions">
-        <a class="btn" href="/tools/crawl-blog/">Trải nghiệm Crawl Blog Free</a>
-      </div>
-      <small class="muted">⭐ Freemium: Xem video để mở khóa công cụ – 50 lượt miễn phí.</small>
-    </section>
-    <section class="grid2">
-      <div class="card">
-        <h2>Automation thực chiến</h2>
-        <p>Tự động hoá báo cáo, đồng bộ dữ liệu, quy trình đối soát, và xử lý đơn hàng.</p>
-      </div>
-      <div class="card">
-        <h2>AI ứng dụng</h2>
-        <p>Gợi ý & hỗ trợ quy trình bằng AI, tái viết nội dung, chuẩn hóa dữ liệu.</p>
-      </div>
-    </section>
+  <header>
+    <h1>🔓 Crawl Blog Free – Giai đoạn 1 (MVP)</h1>
+    <p>Xem video hướng dẫn tối thiểu <b>10 giây</b> để mở khóa công cụ. Mỗi người dùng có <b>50 lượt</b> miễn phí (lưu tại trình duyệt).</p>
+    <div class="actions">
+      <span class="badge">Domain: <b>ngoctay.io.vn</b></span>
+      <span class="badge">Phiên bản: <b>MVP 1.0</b></span>
+      <span class="badge">Freemium</span>
+    </div>
   </header>
-  <footer class="footer">
-    © 2025 PyLab – Một dự án của ngoctay.io.vn
-  </footer>
+
+  <div class="container">
+    <div class="row split">
+      <section class="card">
+        <h2 style="margin-top:0">1) Xem video để mở khóa</h2>
+        <div class="yt-wrap">
+          <!-- TODO: thay YOUR_VIDEO_ID bằng video hướng dẫn của bạn -->
+          <iframe id="yt-player" src="https://www.youtube.com/embed/YOUR_VIDEO_ID?enablejsapi=1"
+            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+          </iframe>
+        </div>
+        <div class="actions" style="margin-top:12px">
+          <button id="unlock-btn" disabled>✅ Đã xem đủ 10s? Nhấn để mở khóa</button>
+          <span id="watch-indicator" class="pill warn">Đang đợi xem đủ 10s…</span>
+        </div>
+        <small class="hint">Mẹo: Bạn có thể đặt thời lượng yêu cầu thành 30–60s sau khi kênh đã có người xem ổn định.</small>
+      </section>
+
+      <section class="card">
+        <h2 style="margin-top:0">2) Trạng thái</h2>
+        <div class="quota">
+          <span class="badge">Trạng thái: <b id="status-lock">🔒 Chưa mở khóa</b></span>
+          <span class="badge">Quota còn lại: <b id="quota-left">–</b> / 50</span>
+        </div>
+        <div style="margin-top:12px">
+          <button id="reset-quota">↺ Reset quota (DEV)</button>
+          <button id="lock-tool">🔒 Khóa lại</button>
+        </div>
+        <small class="hint">Quota và trạng thái lưu ở <span class="kbd">localStorage</span> trên trình duyệt của từng người dùng.</small>
+      </section>
+    </div>
+
+    <section id="tool" class="card" style="display:none;margin-top:16px">
+      <h2 style="margin-top:0">3) Crawl blog</h2>
+
+      <label for="blog-url">Nhập URL bài blog:</label>
+      <input type="url" id="blog-url" placeholder="https://example.com/bai-viet" />
+
+      <div class="actions" style="margin-top:10px">
+        <button id="crawl-btn">🚀 Crawl nội dung</button>
+        <button id="copy-btn">📋 Copy kết quả</button>
+        <button id="download-btn">⬇️ Tải .txt</button>
+      </div>
+      <small class="hint">Lưu ý: Một số website chặn CORS. Nếu lỗi, hãy dùng proxy (ví dụ Cloudflare Worker) – hướng dẫn ở dưới.</small>
+
+      <textarea id="result" placeholder="Nội dung sẽ hiện tại đây…"></textarea>
+
+      <details style="margin-top:10px">
+        <summary>⚙️ Cấu hình nâng cao (tùy chọn)</summary>
+        <div style="margin-top:8px;display:grid;gap:8px">
+          <label>Proxy endpoint (nếu cần): <input id="proxy-url" placeholder="https://your-worker.yourname.workers.dev/fetch?url=" /></label>
+          <small class="hint">Để trống nếu muốn fetch trực tiếp. Nếu để proxy, hệ thống sẽ thử trực tiếp trước, lỗi mới chuyển sang proxy.</small>
+        </div>
+      </details>
+    </section>
+
+    <section class="card" style="margin-top:16px">
+      <h2 style="margin-top:0">4) Hướng dẫn dựng Proxy bằng Cloudflare Worker</h2>
+      <p>Dùng khi website chặn CORS:</p>
+      <pre class="kbd" style="white-space:pre-wrap;padding:12px;border-radius:10px">
+export default {
+  async fetch(request) {
+    const url = new URL(request.url);
+    const target = url.searchParams.get("url");
+    if (!target) return new Response("Missing url", { status: 400 });
+    const res = await fetch(target, { headers: { "User-Agent": "Mozilla/5.0" }});
+    const text = await res.text();
+    return new Response(text, {
+      headers: {
+        "content-type": "text/html; charset=utf-8",
+        "access-control-allow-origin": "*"
+      }
+    });
+  }
+}
+      </pre>
+      <small class="hint">Triển khai tại <a href="https://dash.cloudflare.com/" target="_blank" rel="noopener">Cloudflare Workers</a> → tạo Worker mới → dán code → deploy → lấy URL dán vào ô Proxy.</small>
+    </section>
+
+    <div class="footer">© 2025 ngoctay.io.vn – MVP Giai đoạn 1</div>
+  </div>
+
+  <script>
+    // ===== Config =====
+    const REQUIRED_SECONDS = 10; // đổi 30–60s khi cần
+    const DEFAULT_QUOTA = 50;
+    const LS_KEYS = {
+      quota: "nt_quota",
+      unlocked: "nt_unlocked",
+      watched: "nt_watched_sec"
+    };
+
+    // ===== State =====
+    let watchTime = 0, watchInterval = null;
+    let quota = parseInt(localStorage.getItem(LS_KEYS.quota) || DEFAULT_QUOTA, 10);
+    let unlocked = localStorage.getItem(LS_KEYS.unlocked) === "true";
+
+    // ===== Helpers =====
+    const $ = s => document.querySelector(s);
+    const setBadge = (ok) => {
+      $("#status-lock").innerHTML = ok ? "✅ Đã mở khóa" : "🔒 Chưa mở khóa";
+    };
+    const updateQuotaUI = () => { $("#quota-left").textContent = quota; };
+
+    // ===== YouTube IFrame API Loader =====
+    (function loadYT(){
+      const tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.body.appendChild(tag);
+    })();
+
+    let player;
+    window.onYouTubeIframeAPIReady = function(){
+      player = new YT.Player('yt-player', {
+        events: { 'onStateChange': onPlayerStateChange }
+      });
+    };
+
+    function onPlayerStateChange(e){
+      if (e.data === YT.PlayerState.PLAYING){
+        clearInterval(watchInterval);
+        watchInterval = setInterval(() => {
+          watchTime++;
+          localStorage.setItem(LS_KEYS.watched, String(watchTime));
+          const left = Math.max(0, REQUIRED_SECONDS - watchTime);
+          if (left <= 0){
+            $("#unlock-btn").disabled = false;
+            $("#watch-indicator").textContent = "Đã đủ thời lượng. Nhấn mở khóa ✅";
+            $("#watch-indicator").className = "pill ok";
+            clearInterval(watchInterval);
+          } else {
+            $("#watch-indicator").textContent = "Còn " + left + "s để mở khóa…";
+            $("#watch-indicator").className = "pill warn";
+          }
+        }, 1000);
+      } else {
+        clearInterval(watchInterval);
+      }
+    }
+
+    // ===== Unlock / Lock =====
+    function showTool(show){
+      $("#tool").style.display = show ? "block" : "none";
+      setBadge(show);
+    }
+
+    $("#unlock-btn").addEventListener("click", () => {
+      if (watchTime < REQUIRED_SECONDS) return;
+      unlocked = true;
+      localStorage.setItem(LS_KEYS.unlocked, "true");
+      showTool(true);
+    });
+
+    $("#lock-tool").addEventListener("click", () => {
+      unlocked = false;
+      localStorage.setItem(LS_KEYS.unlocked, "false");
+      showTool(false);
+    });
+
+    // ===== Quota Controls =====
+    $("#reset-quota").addEventListener("click", () => {
+      quota = DEFAULT_QUOTA;
+      localStorage.setItem(LS_KEYS.quota, String(quota));
+      updateQuotaUI();
+      alert("Đã reset quota về " + DEFAULT_QUOTA);
+    });
+
+    // ===== Crawl Logic =====
+    async function directFetch(url){
+      const res = await fetch(url, { headers: { "User-Agent":"Mozilla/5.0" } });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return await res.text();
+    }
+
+    async function proxyFetch(proxyBase, url){
+      const sep = proxyBase.endsWith("=") || proxyBase.endsWith("?url=") ? "" : (proxyBase.includes("?") ? "&url=" : "?url=");
+      const target = proxyBase + sep + encodeURIComponent(url);
+      const res = await fetch(target);
+      if (!res.ok) throw new Error("Proxy HTTP " + res.status);
+      return await res.text();
+    }
+
+    function extractContent(htmlText){
+      const doc = new DOMParser().parseFromString(htmlText, "text/html");
+      let title = doc.querySelector("h1, h1.entry-title, .post-title, .article-title")?.textContent?.trim() || "";
+      const paragraphs = Array.from(doc.querySelectorAll("article p, .post-content p, .entry-content p, main p, .content p, p"));
+      const texts = paragraphs.map(p => p.textContent.trim()).filter(Boolean);
+      const content = texts.join("\\n\\n");
+      if (!title) title = (doc.title || "").trim();
+      return { title, content };
+    }
+
+    $("#crawl-btn").addEventListener("click", async () => {
+      if (!unlocked) return alert("Hãy mở khóa công cụ trước.");
+      if (quota <= 0) return alert("Bạn đã hết lượt miễn phí.");
+
+      const url = $("#blog-url").value.trim();
+      if (!url) return alert("Nhập URL hợp lệ.");
+
+      $("#crawl-btn").disabled = true;
+      $("#crawl-btn").textContent = "Đang crawl…";
+
+      try{
+        let html = null;
+        // Try direct first
+        try{
+          html = await directFetch(url);
+        } catch(err){
+          // Try proxy
+          const proxyBase = $("#proxy-url").value.trim();
+          if (!proxyBase) throw err;
+          html = await proxyFetch(proxyBase, url);
+        }
+
+        const { title, content } = extractContent(html);
+        const finalText = (title ? (title + "\\n\\n") : "") + content;
+        $("#result").value = finalText || "[Không trích xuất được nội dung]";
+
+        // decrease quota
+        quota = Math.max(0, quota - 1);
+        localStorage.setItem(LS_KEYS.quota, String(quota));
+        updateQuotaUI();
+      } catch (e){
+        console.error(e);
+        alert("Lỗi crawl. Có thể do CORS. Hãy cấu hình Proxy và thử lại.");
+      } finally {
+        $("#crawl-btn").disabled = false;
+        $("#crawl-btn").textContent = "🚀 Crawl nội dung";
+      }
+    });
+
+    // Copy & Download
+    $("#copy-btn").addEventListener("click", async () => {
+      const text = $("#result").value;
+      try{
+        await navigator.clipboard.writeText(text);
+        alert("Đã copy!");
+      } catch{
+        alert("Không copy được. Hãy chọn thủ công.");
+      }
+    });
+
+    $("#download-btn").addEventListener("click", () => {
+      const text = $("#result").value || "";
+      const blob = new Blob([text], {type:"text/plain;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "blog.txt";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // ===== Init UI =====
+    (function init(){
+      const savedWatched = parseInt(localStorage.getItem(LS_KEYS.watched) || "0", 10);
+      if (!isNaN(savedWatched)) watchTime = savedWatched;
+      if (watchTime >= REQUIRED_SECONDS){
+        $("#unlock-btn").disabled = false;
+        $("#watch-indicator").textContent = "Đã đủ thời lượng. Nhấn mở khóa ✅";
+        $("#watch-indicator").className = "pill ok";
+      }
+      setBadge(unlocked);
+      updateQuotaUI();
+      showTool(unlocked);
+    })();
+  </script>
 </body>
 </html>
