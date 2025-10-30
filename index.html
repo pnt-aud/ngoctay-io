@@ -6,37 +6,570 @@
   <title>PyLab – Giải pháp doanh nghiệp</title>
   <meta name="description" content="PyLab cung cấp các công cụ tự động hóa, AI, và giải pháp tối ưu quy trình cho doanh nghiệp Việt." />
   <link rel="stylesheet" href="/assets/styles.css" />
+  <style>
+    :root {
+      --color-primary: #2563eb;
+      --color-primary-dark: #1d4ed8;
+      --color-secondary: #0f172a;
+      --color-muted: #64748b;
+      --color-surface: #ffffff;
+      --color-background: #f1f5f9;
+      --color-border: #e2e8f0;
+      --radius-lg: 1.5rem;
+      --radius-md: 1rem;
+      --radius-sm: 0.75rem;
+      --shadow-lg: 0 30px 70px rgba(15, 23, 42, 0.15);
+      --shadow-sm: 0 12px 35px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--color-secondary);
+      background: var(--color-background);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+    }
+
+    .container {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+    }
+
+    .site-header {
+      backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.85);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.25rem 0;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--color-primary-dark);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-weight: 500;
+      color: var(--color-muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--color-primary);
+    }
+
+    main {
+      display: block;
+      padding-bottom: 4rem;
+    }
+
+    .hero {
+      padding: clamp(3.5rem, 8vw, 5.5rem) 0 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.18), transparent 55%),
+        radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.2), transparent 45%);
+      opacity: 0.85;
+      z-index: 0;
+    }
+
+    .hero-card {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: clamp(2.2rem, 5vw, 3.5rem);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: center;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: var(--radius-lg);
+      padding: clamp(2.5rem, 6vw, 4rem);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-content .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.12);
+      color: var(--color-primary-dark);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.3rem);
+      line-height: 1.1;
+      margin: 1.4rem 0 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-subtitle {
+      color: var(--color-muted);
+      font-size: 1.05rem;
+      max-width: 38ch;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2.2rem 0 1.25rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.6rem;
+      border-radius: 0.9rem;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-primary), #60a5fa);
+      color: #fff;
+      box-shadow: 0 16px 30px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 45px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-secondary);
+      border-color: rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-primary);
+      background: rgba(37, 99, 235, 0.08);
+    }
+
+    .muted {
+      color: var(--color-muted);
+      display: block;
+    }
+
+    .hero-media {
+      position: relative;
+    }
+
+    .hero-media::before {
+      content: "";
+      position: absolute;
+      inset: -8% -10% -12% -8%;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(59, 130, 246, 0.05));
+      border-radius: var(--radius-lg);
+      filter: blur(0px);
+      z-index: -1;
+    }
+
+    .hero-media img {
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section {
+      padding: clamp(3rem, 6vw, 4.8rem) 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .section-header p {
+      color: var(--color-muted);
+      margin: 0;
+    }
+
+    .feature-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .feature-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(226, 232, 240, 0.7);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 0.14);
+    }
+
+    .feature-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.85rem;
+      display: grid;
+      place-items: center;
+      background: rgba(37, 99, 235, 0.12);
+      color: var(--color-primary-dark);
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 0.8rem;
+      font-size: 1.2rem;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--color-muted);
+    }
+
+    .process {
+      padding: clamp(3rem, 6vw, 4.8rem) 0;
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .process-steps {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin-top: 2.5rem;
+    }
+
+    .step {
+      border-radius: var(--radius-md);
+      padding: 1.8rem;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .step-number {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.75rem;
+      background: rgba(37, 99, 235, 0.15);
+      color: var(--color-primary-dark);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .step h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1.15rem;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--color-muted);
+    }
+
+    .social-proof {
+      padding: clamp(3rem, 6vw, 4.5rem) 0 4.5rem;
+    }
+
+    .proof-grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: stretch;
+    }
+
+    .testimonial {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(226, 232, 240, 0.6);
+    }
+
+    .testimonial blockquote {
+      font-size: 1.1rem;
+      margin: 0 0 1.5rem;
+      color: var(--color-secondary);
+    }
+
+    .testimonial cite {
+      font-style: normal;
+      color: var(--color-muted);
+      font-weight: 600;
+      display: block;
+    }
+
+    .logo-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem;
+      border: 1px solid rgba(226, 232, 240, 0.6);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .logo-card h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .logo-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    .logo-list li {
+      padding: 0.7rem 1.2rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.05);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--color-muted);
+    }
+
+    .footer {
+      padding: 2.5rem 0 2.8rem;
+      text-align: center;
+      color: var(--color-muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-card {
+        grid-template-columns: 1fr;
+        text-align: left;
+      }
+
+      .proof-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: flex-end;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .btn {
+        flex: 1 1 180px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .hero-card {
+        padding: 2.2rem;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .logo-list {
+        gap: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header class="container">
-    <nav class="nav">
-      <a class="brand" href="/">PyLab</a>
-      <div class="nav-links">
-        <a href="/tools/crawl-blog/">Crawl Blog</a>
-        <a href="/contact.html">Liên hệ</a>
-      </div>
-    </nav>
-    <section class="hero card">
-      <h1>PyLab – Giải pháp công nghệ cho doanh nghiệp</h1>
-      <p>Chúng tôi xây dựng công cụ giúp doanh nghiệp nhỏ hoạt động hiệu quả như doanh nghiệp lớn: automation, AI và kết nối dữ liệu.</p>
-      <div class="actions">
-        <a class="btn" href="/tools/crawl-blog/">Trải nghiệm Crawl Blog Free</a>
-      </div>
-      <small class="muted">⭐ Freemium: Xem video để mở khóa công cụ – 50 lượt miễn phí.</small>
-    </section>
-    <section class="grid2">
-      <div class="card">
-        <h2>Automation thực chiến</h2>
-        <p>Tự động hoá báo cáo, đồng bộ dữ liệu, quy trình đối soát, và xử lý đơn hàng.</p>
-      </div>
-      <div class="card">
-        <h2>AI ứng dụng</h2>
-        <p>Gợi ý & hỗ trợ quy trình bằng AI, tái viết nội dung, chuẩn hóa dữ liệu.</p>
-      </div>
-    </section>
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Chính">
+        <a class="brand" href="/">PyLab</a>
+        <div class="nav-links">
+          <a href="/tools/crawl-blog/">Crawl Blog</a>
+          <a href="/contact.html">Liên hệ</a>
+        </div>
+      </nav>
+    </div>
   </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-card">
+        <div class="hero-content">
+          <span class="eyebrow">Giải pháp tăng tốc vận hành</span>
+          <h1>PyLab – Giải pháp công nghệ cho doanh nghiệp</h1>
+          <p class="hero-subtitle">
+            Tự động hoá báo cáo, chuẩn hoá dữ liệu và xây dựng trợ lý AI nội bộ để đội ngũ của bạn làm việc thông minh hơn mỗi
+            ngày.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="/tools/crawl-blog/">Trải nghiệm Crawl Blog Free</a>
+            <a class="btn btn-secondary" href="/contact.html">Nhận tư vấn triển khai</a>
+          </div>
+          <small class="muted">⭐ Freemium: Xem video để mở khóa công cụ – 50 lượt miễn phí & bản demo theo yêu cầu.</small>
+        </div>
+        <figure class="hero-media">
+          <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80" alt="Giao diện dashboard phân tích dữ liệu của PyLab" loading="lazy" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section why-pylab">
+      <div class="container">
+        <div class="section-header">
+          <h2>Vì sao các đội nhóm lựa chọn PyLab</h2>
+          <p>Tập hợp công cụ và chuyên gia giúp doanh nghiệp Việt triển khai tự động hóa và AI một cách an toàn, nhanh chóng.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">⚙️</span>
+            <h3>Automation thực chiến</h3>
+            <p>Tự động hóa báo cáo, đồng bộ dữ liệu và quy trình đối soát giúp tiết kiệm 40% thời gian vận hành.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">🤖</span>
+            <h3>AI ứng dụng sâu</h3>
+            <p>Trợ lý AI nội bộ hỗ trợ tái viết nội dung, chuẩn hoá dữ liệu và gợi ý quyết định theo bối cảnh doanh nghiệp.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">🔗</span>
+            <h3>Tích hợp hệ sinh thái</h3>
+            <p>Kết nối hệ thống ERP/CRM, xây API và workflow đa nguồn dữ liệu theo chuẩn bảo mật doanh nghiệp.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">🧑‍💼</span>
+            <h3>Đồng hành tư vấn</h3>
+            <p>Đội ngũ chuyên gia theo sát từng sprint, chia sẻ best-practice và chuyển giao quy trình vận hành.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="process">
+      <div class="container">
+        <div class="section-header">
+          <h2>Quy trình triển khai tinh gọn</h2>
+          <p>Tối ưu từ discovery đến vận hành thực tế, đảm bảo hiệu quả và thời gian ROI rõ ràng.</p>
+        </div>
+        <div class="process-steps">
+          <article class="step">
+            <div class="step-number">01</div>
+            <h3>Khám phá & đánh giá</h3>
+            <p>Phân tích nhu cầu, dữ liệu hiện tại và xác định cơ hội tự động hóa/AI phù hợp nhất.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">02</div>
+            <h3>Thiết kế giải pháp</h3>
+            <p>Xây blueprint quy trình, lựa chọn công nghệ và dựng roadmap triển khai chi tiết.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">03</div>
+            <h3>Triển khai nhanh</h3>
+            <p>Phát triển mô-đun, kết nối dữ liệu và kiểm thử song song với quy trình hiện hành.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">04</div>
+            <h3>Chuyển giao & tối ưu</h3>
+            <p>Đào tạo đội ngũ, thiết lập dashboard theo dõi và tinh chỉnh dựa trên dữ liệu thực tế.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="social-proof">
+      <div class="container">
+        <div class="section-header">
+          <h2>Được tin dùng bởi các đội ngũ tăng trưởng nhanh</h2>
+          <p>Từ SME đến tập đoàn, PyLab hỗ trợ hơn 60 doanh nghiệp nâng tầm vận hành số.</p>
+        </div>
+        <div class="proof-grid">
+          <article class="testimonial">
+            <blockquote>
+              “PyLab giúp chúng tôi hợp nhất dữ liệu bán hàng và marketing chỉ trong 4 tuần. Đội ngũ giờ có dashboard theo thời
+              gian thực để ra quyết định.”
+            </blockquote>
+            <cite>Nguyễn Hoàng Anh – Trưởng phòng Vận hành, FinPlus</cite>
+          </article>
+          <article class="logo-card">
+            <h3>Đối tác đồng hành</h3>
+            <ul class="logo-list" aria-label="Danh sách khách hàng tiêu biểu">
+              <li>FinPlus</li>
+              <li>BizGrow</li>
+              <li>AlphaRetail</li>
+              <li>NovaLog</li>
+              <li>Heritage Travel</li>
+              <li>EduNext</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <footer class="footer">
-    © 2025 PyLab – Một dự án của ngoctay.io.vn
+    <div class="container">© 2025 PyLab – Một dự án của ngoctay.io.vn</div>
   </footer>
 </body>
 </html>
