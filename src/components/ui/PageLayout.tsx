@@ -4,14 +4,13 @@ import { Navbar } from "./Navbar";
 
 interface PageLayoutProps {
   children: ReactNode;
-  mainClassName?: string;
 }
 
-export function PageLayout({ children, mainClassName = "" }: PageLayoutProps) {
+export function PageLayout({ children }: PageLayoutProps) {
   return (
-    <div className="min-h-screen bg-surface text-slate-900">
+    <div className="flex min-h-screen flex-col bg-surface text-slate-900">
       <Navbar />
-      <main className={mainClassName}>{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );
