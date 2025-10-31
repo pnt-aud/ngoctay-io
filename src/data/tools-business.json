@@ -1,0 +1,46 @@
+[
+  {
+    "name": "SalesFlow CRM",
+    "description": "Quản lý pipeline bán hàng, tự động hóa chăm sóc khách hàng và báo cáo doanh thu theo thời gian thực.",
+    "category": "CRM",
+    "slug": "salesflow-crm",
+    "features": [
+      "Quản lý khách hàng đa kênh",
+      "Tự động hóa email chăm sóc",
+      "Báo cáo hiệu suất đội ngũ"
+    ]
+  },
+  {
+    "name": "GrowthAds",
+    "description": "Nền tảng tối ưu quảng cáo đa kênh với AI, tích hợp báo cáo realtime và gợi ý ngân sách.",
+    "category": "Marketing",
+    "slug": "growthads",
+    "features": [
+      "Tối ưu hoá ngân sách theo thời gian thực",
+      "Theo dõi KPI đa kênh",
+      "Đề xuất chiến lược quảng cáo"
+    ]
+  },
+  {
+    "name": "OpsSync",
+    "description": "Tự động hóa quy trình nội bộ, phân công công việc và theo dõi tiến độ cho toàn bộ doanh nghiệp.",
+    "category": "Vận hành",
+    "slug": "opssync",
+    "features": [
+      "Quy trình tuỳ chỉnh",
+      "Bảng điều khiển tiến độ",
+      "Tích hợp Slack, Email"
+    ]
+  },
+  {
+    "name": "Insight360",
+    "description": "Nền tảng phân tích dữ liệu tập trung với dashboard theo thời gian thực cho cấp quản lý.",
+    "category": "Analytics",
+    "slug": "insight360",
+    "features": [
+      "Kết nối dữ liệu từ nhiều nguồn",
+      "Dashboard tuỳ chỉnh",
+      "Cảnh báo realtime"
+    ]
+  }
+]

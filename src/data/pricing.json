@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Starter",
+    "category": "Cá nhân",
+    "description": "Bao gồm bộ công cụ nền tảng và hỗ trợ triển khai cơ bản cho freelancer.",
+    "price": "499.000đ/tháng",
+    "features": [
+      "Truy cập 10+ tool cá nhân",
+      "Tài liệu hướng dẫn chi tiết",
+      "Hỗ trợ qua email"
+    ]
+  },
+  {
+    "name": "Growth",
+    "category": "Doanh nghiệp nhỏ",
+    "description": "Danh mục tool doanh nghiệp, đào tạo nội bộ và tư vấn chiến lược theo quý.",
+    "price": "2.900.000đ/tháng",
+    "features": [
+      "Truy cập 30+ tool doanh nghiệp",
+      "Workshop nội bộ hàng tháng",
+      "1 buổi tư vấn chuyên gia/tháng"
+    ]
+  },
+  {
+    "name": "Scale",
+    "category": "Doanh nghiệp vừa",
+    "description": "Lộ trình chuyển đổi số toàn diện với hỗ trợ triển khai và quản trị thay đổi.",
+    "price": "Liên hệ",
+    "features": [
+      "Đánh giá hiện trạng 360°",
+      "Kế hoạch triển khai theo giai đoạn",
+      "Đội ngũ hỗ trợ onsite"
+    ]
+  }
+]

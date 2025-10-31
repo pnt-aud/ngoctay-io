@@ -1,0 +1,8 @@
+:root {
+  --color-background: #ffffff;
+  --color-primary: #2563eb;
+  --color-primary-soft: #eff6ff;
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --font-sans: "Inter", "Segoe UI", sans-serif;
+}
