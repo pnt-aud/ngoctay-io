@@ -1,0 +1,35 @@
+[
+  {
+    "name": "NoteZen",
+    "description": "Ứng dụng ghi chú AI giúp tóm tắt ý chính và đề xuất checklist hành động.",
+    "category": "Năng suất",
+    "slug": "notezen",
+    "useCases": [
+      "Tóm tắt ghi chú cuộc họp",
+      "Đề xuất công việc tiếp theo",
+      "Đồng bộ đa thiết bị"
+    ]
+  },
+  {
+    "name": "FinTrack",
+    "description": "Quản lý tài chính cá nhân, phân loại chi tiêu tự động và gợi ý ngân sách hàng tháng.",
+    "category": "Tài chính",
+    "slug": "fintrack",
+    "useCases": [
+      "Theo dõi thu chi",
+      "Nhắc nhở hoá đơn",
+      "Lập kế hoạch tiết kiệm"
+    ]
+  },
+  {
+    "name": "ContentSpark",
+    "description": "Tạo ý tưởng nội dung, viết caption và lập lịch đăng bài đa kênh.",
+    "category": "Sáng tạo",
+    "slug": "contentspark",
+    "useCases": [
+      "Lên kế hoạch nội dung",
+      "Tạo caption mạng xã hội",
+      "Gợi ý hashtag"
+    ]
+  }
+]
