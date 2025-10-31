@@ -1,5 +1,4 @@
-import { Footer } from "../../../components/ui/Footer";
-import { Navbar } from "../../../components/ui/Navbar";
+import { PageLayout } from "../../../components/ui/PageLayout";
 
 const terms = [
   "Quy định về phạm vi sử dụng dữ liệu và nội dung trên nền tảng",
@@ -9,22 +8,25 @@ const terms = [
 
 export default function TermsOfUsePage() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      <main className="bg-white py-16">
+    <PageLayout>
+      <section className="bg-gradient-to-b from-blue-50 to-white py-16">
         <div className="mx-auto flex max-w-4xl flex-col gap-6 px-6">
-          <h1 className="text-3xl font-semibold text-slate-900">Điều khoản sử dụng</h1>
-          <p className="text-base text-slate-600">
-            Vui lòng đọc kỹ các điều khoản dưới đây trước khi sử dụng dịch vụ của NgocTay.io.
+          <span className="text-xs font-semibold uppercase tracking-wide text-indigo-600">Chính sách</span>
+          <h1 className="text-3xl font-semibold leading-tight text-slate-900 md:text-4xl">Điều khoản sử dụng</h1>
+          <p className="text-base text-slate-600 leading-relaxed">
+            Vui lòng đọc kỹ các điều khoản dưới đây trước khi sử dụng dịch vụ của NgocTay.io. Việc tiếp tục sử dụng đồng nghĩa với việc bạn chấp nhận concept vận hành và những cam kết bảo mật của chúng tôi.
           </p>
+        </div>
+      </section>
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-4xl px-6">
           <ul className="space-y-4 text-base text-slate-700">
             {terms.map((item) => (
               <li key={item}>• {item}</li>
             ))}
           </ul>
         </div>
-      </main>
-      <Footer />
-    </div>
+      </section>
+    </PageLayout>
   );
 }
