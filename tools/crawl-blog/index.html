@@ -262,53 +262,59 @@
     </footer>
 
     <script>
-      const quotaState = document.getElementById('quota-state');
-      const crawlBtn = document.getElementById('crawl-btn');
-      const blogUrlInput = document.getElementById('blog-url');
-      const resultBox = document.getElementById('result');
-      const feedback = document.getElementById('feedback');
-      const tutorialVideoContainer = document.getElementById('tutorial-video');
-      const videoFallback = document.getElementById('video-fallback');
-      const watchProgress = document.getElementById('watch-progress');
-      const manualUnlockBtn = document.getElementById('manual-unlock-btn');
+      (() => {
+        const quotaState = document.getElementById('quota-state');
+        const crawlBtn = document.getElementById('crawl-btn');
+        const blogUrlInput = document.getElementById('blog-url');
+        const resultBox = document.getElementById('result');
+        const feedback = document.getElementById('feedback');
+        const tutorialVideoContainer = document.getElementById('tutorial-video');
+        const videoFallback = document.getElementById('video-fallback');
+        const watchProgress = document.getElementById('watch-progress');
+        const manualUnlockBtn = document.getElementById('manual-unlock-btn');
 
-      const YOUTUBE_VIDEO_ID = tutorialVideoContainer?.dataset.videoId || 'hUoq2ELzIyA';
-      const YOUTUBE_WATCH_URL = `https://www.youtube.com/watch?v=${YOUTUBE_VIDEO_ID}`;
-      const YOUTUBE_EMBED_HOST = 'https://www.youtube-nocookie.com';
+        const YOUTUBE_VIDEO_ID = tutorialVideoContainer?.dataset.videoId || 'hUoq2ELzIyA';
+        const YOUTUBE_WATCH_URL = `https://www.youtube.com/watch?v=${YOUTUBE_VIDEO_ID}`;
+        const YOUTUBE_EMBED_HOST = 'https://www.youtube-nocookie.com';
 
-      const REQUIRED_WATCH_SECONDS = 30;
-      const CREDITS_REWARD = 3;
-      const POSTS_PER_CREDIT = 30;
+        const REQUIRED_WATCH_SECONDS = 30;
+        const CREDITS_REWARD = 3;
+        const POSTS_PER_CREDIT = 30;
 
-      let ytPlayer;
-      let youtubeReady = false;
-      let youtubeFallbackTimer;
-      let playbackInterval;
-      let watchedSeconds = 0;
-      let lastTrackedTime = 0;
-      let unlockGranted = false;
-      let remainingCredits = 0;
+        let ytPlayer;
+        let youtubeReady = false;
+        let youtubeFallbackTimer;
+        let playbackInterval;
+        let watchedSeconds = 0;
+        let lastTrackedTime = 0;
+        let unlockGranted = false;
+        let remainingCredits = 0;
+        let manualUnlockAllowed = false;
 
-      updateQuotaState();
-      updateWatchProgress();
+        updateQuotaState();
+        updateWatchProgress();
 
-      if (tutorialVideoContainer) {
-        initYouTubePlayer();
-      }
+        if (tutorialVideoContainer) {
+          initYouTubePlayer();
+        }
 
-      crawlBtn.addEventListener('click', crawlBlog);
+        crawlBtn.addEventListener('click', crawlBlog);
 
-      if (manualUnlockBtn) {
-        manualUnlockBtn.addEventListener('click', () => {
-          grantQuota('manual');
-          if (unlockGranted) {
-            manualUnlockBtn.disabled = true;
-            manualUnlockBtn.textContent = 'Đã xác nhận lượt xem';
-          }
-        });
-      }
+        if (manualUnlockBtn) {
+          manualUnlockBtn.addEventListener('click', () => {
+            if (!manualUnlockAllowed) {
+              return;
+            }
 
-      function initYouTubePlayer() {
+            grantQuota('manual');
+            if (unlockGranted) {
+              manualUnlockBtn.disabled = true;
+              manualUnlockBtn.textContent = 'Đã xác nhận lượt xem';
+            }
+          });
+        }
+
+        function initYouTubePlayer() {
         youtubeFallbackTimer = window.setTimeout(() => {
           if (!youtubeReady) {
             showVideoFallback();
@@ -511,6 +517,7 @@
             link.href = YOUTUBE_WATCH_URL;
           }
           if (manualUnlockBtn && !unlockGranted) {
+            manualUnlockAllowed = true;
             manualUnlockBtn.hidden = false;
             manualUnlockBtn.disabled = false;
             manualUnlockBtn.textContent = 'Tôi đã xem video trên YouTube';
@@ -522,6 +529,8 @@
       }
 
       function hideVideoFallback() {
+        manualUnlockAllowed = false;
+
         if (videoFallback) {
           videoFallback.classList.remove('show');
           videoFallback.hidden = true;
@@ -607,8 +616,9 @@
         }
       }
 
-      updateQuotaState();
-      updateWatchProgress();
+        updateQuotaState();
+        updateWatchProgress();
+      })();
     </script>
   </body>
 </html>
