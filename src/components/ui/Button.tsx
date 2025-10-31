@@ -8,10 +8,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 function getVariantClasses(variant: ButtonVariant) {
   if (variant === "secondary") {
-    return "bg-white text-blue-600 border border-blue-200 hover:bg-blue-50";
+    return "bg-white text-indigo-600 border border-indigo-100 hover:bg-indigo-50";
   }
 
-  return "bg-blue-600 text-white hover:bg-blue-500";
+  return "bg-indigo-600 text-white hover:bg-indigo-500";
 }
 
 export function Button({ className = "", variant = "primary", ...props }: ButtonProps) {

@@ -1,8 +1,12 @@
 :root {
-  --color-background: #ffffff;
-  --color-primary: #2563eb;
-  --color-primary-soft: #eff6ff;
-  --color-text: #1e293b;
-  --color-text-muted: #64748b;
+  --color-background: #f4f7ff;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-primary: #4f46e5;
+  --color-primary-soft: #eef2ff;
+  --color-secondary: #0f172a;
+  --color-accent: #f97316;
+  --color-text: #0f172a;
+  --color-text-muted: #475569;
   --font-sans: "Inter", "Segoe UI", sans-serif;
 }
