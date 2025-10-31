@@ -1,4 +1,5 @@
 import Image from "next/image";
+import clsx from "clsx";
 
 type ToolCardProps = {
   name: string;
@@ -6,40 +7,43 @@ type ToolCardProps = {
   icon: string;
   cta_url: string;
   tags: string[];
+  className?: string;
 };
 
-export function ToolCard({ name, short_description, icon, cta_url, tags }: ToolCardProps) {
+export function ToolCard({ name, short_description, icon, cta_url, tags, className }: ToolCardProps) {
+  let ctaHost = "";
+  try {
+    const url = new URL(cta_url);
+    ctaHost = url.hostname.replace("www.", "");
+  } catch (error) {
+    ctaHost = "";
+  }
+
   return (
-    <article className="flex h-full flex-col gap-4 rounded-2xl border border-blue-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-      <div className="flex items-center gap-4">
-        <div className="h-14 w-14 flex-shrink-0 rounded-xl bg-indigo-50 p-2">
-          <Image src={icon} alt="" width={56} height={56} className="h-full w-full" />
-        </div>
+    <article className={clsx("tool-card", className)}>
+      <div className="tool-card__icon">
+        <Image src={icon} alt="" width={56} height={56} />
+      </div>
+      <div className="tool-card__content">
         <div>
-          <h3 className="text-xl font-semibold text-slate-900">{name}</h3>
-          <p className="text-sm text-slate-600">{short_description}</p>
+          <h3 className="tool-card__title">{name}</h3>
+          <p className="tool-card__description">{short_description}</p>
+        </div>
+        <div className="tool-card__tags" aria-label="Từ khóa liên quan">
+          {tags.map((tag) => (
+            <span key={tag} className="chip chip--subtle">
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-      <div className="mt-auto">
-        <a
-          href={cta_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-500"
-        >
-          Trải nghiệm ngay
-          <span aria-hidden>→</span>
-        </a>
+      <div className="tool-card__footer">
+        <span className="tool-card__cta">
+          {ctaHost ? `Truy cập: ${ctaHost}` : "Khám phá ngay"}
+        </span>
+        <span className="tool-card__arrow" aria-hidden>
+          →
+        </span>
       </div>
     </article>
   );
