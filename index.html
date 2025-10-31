@@ -9,15 +9,27 @@
     content="PyLab cung cấp các công cụ tự động hóa, AI, và giải pháp tối ưu quy trình cho doanh nghiệp Việt."
   />
   <link rel="stylesheet" href="/assets/styles.css" />
+  <script src="/assets/nav.js" defer></script>
 </head>
 <body>
   <header class="site-header">
     <div class="container">
       <nav class="nav">
         <a class="brand" href="/">PyLab</a>
-        <div class="nav-links">
-          <a href="/tools/crawl-blog/">Crawl Blog</a>
-          <a href="/contact.html">Liên hệ</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="sr-only">Mở menu</span>
+        </button>
+        <div class="nav-links" id="primary-navigation" data-open="false">
+          <a href="/" aria-current="page">Trang chủ</a>
+          <a href="/#features">Giải pháp</a>
+          <a href="/#crawlr">Crawlr</a>
+          <a href="/#process">Quy trình</a>
+          <a href="/#testimonials">Khách hàng</a>
+          <a href="/tools/crawl-blog/">Công cụ Crawl Blog</a>
+          <a class="nav-link-cta" href="/contact.html">Liên hệ</a>
         </div>
       </nav>
     </div>
@@ -74,6 +86,78 @@
             <h3>Tích hợp hệ thống</h3>
             <p>Kết nối liền mạch với CRM, ERP, chatbot và các công cụ nội bộ để tạo trải nghiệm thống nhất.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="crawlr" class="section section-alt crawlr-section">
+      <div class="container">
+        <header class="section-header">
+          <span class="eyebrow">Trọn bộ sản phẩm</span>
+          <h2>Crawlr – bộ công cụ thu thập và làm sạch nội dung thế hệ mới</h2>
+          <p>
+            Khai thác dữ liệu từ báo chí, blog và knowledge base một cách nhanh chóng, sạch và chuẩn định dạng. Crawlr phù hợp
+            cho đội marketing, nghiên cứu thị trường và đội sản phẩm AI cần dữ liệu chất lượng cao.
+          </p>
+        </header>
+
+        <div class="crawlr-metrics">
+          <div>
+            <strong>30+</strong>
+            <span>Nguồn báo chí &amp; blog hỗ trợ</span>
+          </div>
+          <div>
+            <strong>90s</strong>
+            <span>Để gom &amp; làm sạch 30 bài viết</span>
+          </div>
+          <div>
+            <strong>API</strong>
+            <span>Kết nối sẵn với hệ thống nội bộ</span>
+          </div>
+        </div>
+
+        <div class="crawlr-grid">
+          <article class="crawlr-card">
+            <h3>Crawlr Capture</h3>
+            <p>Thu thập nội dung đa nguồn với cơ chế chống chặn thông minh, hỗ trợ nhiều dạng sitemap &amp; RSS.</p>
+            <ul>
+              <li>Tự động phát hiện cấu trúc bài viết và metadata.</li>
+              <li>Lập lịch crawl theo giờ/ngày phù hợp với chiến dịch.</li>
+              <li>Lưu trữ bản gốc &amp; diff nội dung theo từng lần cập nhật.</li>
+            </ul>
+          </article>
+          <article class="crawlr-card">
+            <h3>Crawlr Clean</h3>
+            <p>Làm sạch, chuẩn hoá và chuyển đổi nội dung sang Markdown, JSON hoặc HTML theo nhu cầu.</p>
+            <ul>
+              <li>Loại bỏ quảng cáo, script, phần tử thừa với AI selectors.</li>
+              <li>Tự động tóm tắt, gắn tag &amp; phân loại chủ đề.</li>
+              <li>Đảm bảo encoding chuẩn UTF-8, giữ nguyên bảng và hình ảnh.</li>
+            </ul>
+          </article>
+          <article class="crawlr-card">
+            <h3>Crawlr Deliver</h3>
+            <p>Phân phối dữ liệu tới Notion, CMS, Data Warehouse hoặc mô hình AI qua API duy nhất.</p>
+            <ul>
+              <li>Webhook &amp; API REST, hỗ trợ push trực tiếp lên Slack/Teams.</li>
+              <li>Quản lý quota, cảnh báo lỗi và retry thông minh.</li>
+              <li>Dashboard realtime theo dõi tiến độ &amp; chất lượng nội dung.</li>
+            </ul>
+          </article>
+          <article class="crawlr-card">
+            <h3>Crawlr Insights</h3>
+            <p>Phân tích nội dung theo thời gian thực, tạo báo cáo và trigger hành động marketing tự động.</p>
+            <ul>
+              <li>Alert theo từ khoá, sentiment hoặc thay đổi trên trang.</li>
+              <li>Mô hình hoá hành trình người đọc và điểm chạm cạnh tranh.</li>
+              <li>Kết nối Looker Studio, Power BI và hệ thống BI nội bộ.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="crawlr-cta">
+          <a class="btn btn-primary" href="/tools/crawl-blog/">Dùng thử Crawlr Free</a>
+          <a class="btn btn-secondary" href="mailto:hello@ngoctay.io.vn">Nhận tư vấn bản doanh nghiệp</a>
         </div>
       </div>
     </section>

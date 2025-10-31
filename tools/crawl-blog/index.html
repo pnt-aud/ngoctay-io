@@ -9,6 +9,7 @@
       content="Công cụ crawl nội dung blog dành cho cộng đồng PyLab. Xem video hướng dẫn để mở khóa lượt crawl miễn phí."
     />
     <link rel="stylesheet" href="/assets/styles.css" />
+    <script src="/assets/nav.js" defer></script>
     <style>
       .tool-layout {
         display: grid;
@@ -182,9 +183,20 @@
       <div class="container">
         <nav class="nav">
           <a class="brand" href="/">PyLab</a>
-          <div class="nav-links">
-            <a href="/tools/crawl-blog/" aria-current="page">Crawl Blog</a>
-            <a href="/contact.html">Liên hệ</a>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="sr-only">Mở menu</span>
+          </button>
+          <div class="nav-links" id="primary-navigation" data-open="false">
+            <a href="/">Trang chủ</a>
+            <a href="/#features">Giải pháp</a>
+            <a href="/#crawlr">Crawlr</a>
+            <a href="/#process">Quy trình</a>
+            <a href="/#testimonials">Khách hàng</a>
+            <a href="/tools/crawl-blog/" aria-current="page">Công cụ Crawl Blog</a>
+            <a class="nav-link-cta" href="/contact.html">Liên hệ</a>
           </div>
         </nav>
       </div>
