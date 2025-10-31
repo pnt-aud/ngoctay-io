@@ -1,43 +1,74 @@
 import { notFound } from "next/navigation";
-import toolsPersonal from "../../../data/tools-personal.json";
-import { PageLayout } from "../../../components/ui/PageLayout";
+import personalTools from "@/data/tools-personal.json";
 
-interface PersonalToolPageProps {
-  params: { slug: string };
-}
+type Tool = {
+  slug: string;
+  name: string;
+  short_description: string;
+  description: string;
+  icon: string;
+  cta_url: string;
+  tags: string[];
+  features: string[];
+};
+
+const tools = personalTools as Tool[];
 
 export function generateStaticParams() {
-  return toolsPersonal.map((tool) => ({ slug: tool.slug }));
+  return tools.map((tool) => ({ slug: tool.slug }));
 }
 
-export default function PersonalToolDetailPage({ params }: PersonalToolPageProps) {
-  const tool = toolsPersonal.find((item) => item.slug === params.slug);
+type Params = {
+  params: {
+    slug: string;
+  };
+};
+
+export default function PersonalToolDetail({ params }: Params) {
+  const tool = tools.find((item) => item.slug === params.slug);
 
   if (!tool) {
     notFound();
   }
 
   return (
-    <PageLayout>
-      <section className="bg-gradient-to-b from-blue-50 to-white py-16">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6 px-6">
-          <span className="text-xs font-semibold uppercase tracking-wide text-indigo-600">{tool.category}</span>
-          <h1 className="text-3xl font-semibold leading-tight text-slate-900 md:text-4xl">{tool.name}</h1>
-          <p className="text-base text-slate-600 leading-relaxed">{tool.description}</p>
+    <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+      <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">Cá nhân</p>
+      <h1 className="mt-3 text-4xl font-bold text-slate-900">{tool.name}</h1>
+      <p className="mt-4 text-base text-slate-600">{tool.description}</p>
+
+      <div className="mt-8 space-y-4">
+        <h2 className="text-xl font-semibold text-slate-900">Trải nghiệm bạn nhận được</h2>
+        <ul className="space-y-3">
+          {tool.features.map((feature) => (
+            <li key={feature} className="rounded-xl border border-indigo-100 bg-white p-4 text-sm text-slate-700">
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mt-10 flex flex-wrap items-center gap-4">
+        <a
+          href={tool.cta_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-indigo-500"
+        >
+          Dùng thử miễn phí
+          <span aria-hidden>→</span>
+        </a>
+        <div className="flex flex-wrap gap-2">
+          {tool.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
-      </section>
-      <section className="bg-white py-16">
-        <div className="mx-auto max-w-4xl px-6">
-          <div className="rounded-2xl border border-indigo-100 bg-surface p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-900">Cách áp dụng trong concept</h2>
-            <ul className="mt-4 space-y-2 text-sm text-slate-600">
-              {tool.useCases.map((useCase) => (
-                <li key={useCase}>• {useCase}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-    </PageLayout>
+      </div>
+    </main>
   );
 }
