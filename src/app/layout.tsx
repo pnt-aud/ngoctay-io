@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { ReactNode } from "react";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -14,8 +16,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="vi" className={inter.variable}>
-      <body className="bg-gradient-to-b from-blue-50 to-white text-slate-900">
-        {children}
+      <body>
+        <div className="app-shell">
+          <SiteHeader />
+          <div className="main-content">{children}</div>
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );
