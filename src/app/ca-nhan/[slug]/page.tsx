@@ -42,8 +42,8 @@ export default function PersonalToolDetail({ params }: Params) {
           </Link>
           <article className="detail-card">
             <div className="detail-card__header">
-              <div className="detail-card__icon" aria-hidden>
-                <Image src={tool.icon} alt="" width={64} height={64} />
+              <div className="detail-card__icon" aria-hidden="true">
+                <Image src={tool.icon} alt={tool.name} width={64} height={64} />
               </div>
               <div>
                 <h1 className="detail-card__title">{tool.name}</h1>
@@ -60,7 +60,7 @@ export default function PersonalToolDetail({ params }: Params) {
             <div className="feature-list">
               {tool.features.map((feature) => (
                 <div key={feature} className="feature-item">
-                  <span className="feature-item__icon" aria-hidden>
+                  <span className="feature-item__icon" aria-hidden="true">
                     ✓
                   </span>
                   <p>{feature}</p>
