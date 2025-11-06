@@ -1,0 +1,3 @@
+name = "ngoctay-io"
+compatibility_date = "2024-10-12"
+compatibility_flags = ["nodejs_compat"]
