@@ -18,121 +18,78 @@
   </head>
   <body class="app-body">
     <div class="app-shell">
-      <header class="site-header">
-        <div class="site-header__glow" aria-hidden="true"></div>
-        <div class="site-header__backdrop" aria-hidden="true"></div>
-        <div class="container site-header__inner">
-          <a href="#hero" class="site-header__brand" aria-label="Ngọc Tây IO">
-            <span class="site-header__logo">NT</span>
-            <div class="site-header__title">
+      <header class="nt-header" data-state="idle">
+        <div class="nt-header__overlay" aria-hidden="true"></div>
+        <div class="container nt-header__inner">
+          <a href="#hero" class="nt-brand" aria-label="Ngọc Tây IO">
+            <span class="nt-brand__logo">NT</span>
+            <span class="nt-brand__text">
               <strong>Ngọc Tây</strong>
               <span>IO Cloud</span>
-            </div>
+            </span>
           </a>
 
-          <nav class="site-nav" aria-label="Điều hướng chính">
-            <div class="site-nav__item site-nav__item--has-menu">
-              <button
-                class="site-nav__trigger"
-                type="button"
-                aria-expanded="false"
-                aria-controls="mega-products"
-              >
-                <span>Sản phẩm</span>
-                <svg viewBox="0 0 12 12" aria-hidden="true">
-                  <path d="M2.5 4.25 6 7.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                </svg>
-              </button>
-              <div class="mega-menu" id="mega-products" role="menu">
-                <div class="mega-menu__column mega-menu__column--list">
-                  <p class="mega-menu__eyebrow">Danh mục sản phẩm</p>
-                  <a class="mega-menu__link" href="#pod-redesign">
-                    <span>POD Redesign</span>
-                    <small>Tạo sinh thiết kế mới cùng idea.</small>
-                  </a>
-                  <a class="mega-menu__link" href="#home-for-you">
-                    <span>Home for you</span>
-                    <small>Tạo ý tưởng cho ngôi nhà của bạn.</small>
-                  </a>
+          <nav class="nt-nav" aria-label="Điều hướng chính">
+            <ul class="nt-nav__list">
+              <li class="nt-nav__item nt-nav__item--has-panel">
+                <button class="nt-nav__trigger" type="button" aria-expanded="false" aria-controls="nav-products">
+                  <span>Sản phẩm</span>
+                  <svg viewBox="0 0 12 12" aria-hidden="true">
+                    <path d="M2.5 4.25 6 7.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                </button>
+                <div class="nt-nav__panel" id="nav-products" role="menu">
+                  <span class="nt-nav__panel-eyebrow">Danh mục sản phẩm</span>
+                  <ul>
+                    <li>
+                      <a href="#pod-redesign" class="nt-nav__panel-link">
+                        <span class="nt-nav__panel-title">POD Redesign</span>
+                        <small>Tạo sinh thiết kế mới cùng idea.</small>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#home-for-you" class="nt-nav__panel-link">
+                        <span class="nt-nav__panel-title">Home for you</span>
+                        <small>Tạo ý tưởng cho ngôi nhà của bạn.</small>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
-                <div class="mega-menu__column mega-menu__column--feature">
-                  <article class="mega-card">
-                    <p class="mega-card__eyebrow">Dành cho designer</p>
-                    <h3>POD Redesign Studio</h3>
-                    <p>
-                      Bộ công cụ trực quan giúp đội ngũ sáng tạo phát triển mẫu in POD mới nhanh chóng và đồng nhất.
-                    </p>
-                    <a class="button button--text" href="#pod-redesign">Khám phá ngay</a>
-                  </article>
+              </li>
+              <li class="nt-nav__item nt-nav__item--has-panel">
+                <button class="nt-nav__trigger" type="button" aria-expanded="false" aria-controls="nav-solutions">
+                  <span>Giải pháp</span>
+                  <svg viewBox="0 0 12 12" aria-hidden="true">
+                    <path d="M2.5 4.25 6 7.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                </button>
+                <div class="nt-nav__panel" id="nav-solutions" role="menu">
+                  <span class="nt-nav__panel-eyebrow">Danh mục giải pháp</span>
+                  <ul>
+                    <li>
+                      <a href="#project-management" class="nt-nav__panel-link">
+                        <span class="nt-nav__panel-title">Quản lý dự án</span>
+                        <small>Quản lý dự án cho ngành xây dựng, kiến trúc.</small>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#checkin-online" class="nt-nav__panel-link">
+                        <span class="nt-nav__panel-title">Checkin Online</span>
+                        <small>Giải pháp chấm công tự động.</small>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
-                <div class="mega-menu__column mega-menu__column--meta">
-                  <p class="mega-menu__eyebrow">Tài nguyên nổi bật</p>
-                  <a class="mega-menu__meta-link" href="#platform">
-                    Tổng quan nền tảng
-                    <span>Tính năng realtime, workflow và AI-first.</span>
-                  </a>
-                  <a class="mega-menu__meta-link" href="mailto:hello@ngoctay.io.vn">
-                    Đặt lịch demo
-                    <span>Nhận tư vấn trực tiếp từ đội ngũ chuyên gia.</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="site-nav__item site-nav__item--has-menu">
-              <button
-                class="site-nav__trigger"
-                type="button"
-                aria-expanded="false"
-                aria-controls="mega-solutions"
-              >
-                <span>Giải pháp</span>
-                <svg viewBox="0 0 12 12" aria-hidden="true">
-                  <path d="M2.5 4.25 6 7.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                </svg>
-              </button>
-              <div class="mega-menu" id="mega-solutions" role="menu">
-                <div class="mega-menu__column mega-menu__column--list">
-                  <p class="mega-menu__eyebrow">Danh mục giải pháp</p>
-                  <a class="mega-menu__link" href="#project-management">
-                    <span>Quản lý dự án</span>
-                    <small>Quản lý dự án cho ngành xây dựng, kiến trúc.</small>
-                  </a>
-                  <a class="mega-menu__link" href="#checkin-online">
-                    <span>Checkin Online</span>
-                    <small>Giải pháp chấm công tự động.</small>
-                  </a>
-                </div>
-                <div class="mega-menu__column mega-menu__column--feature">
-                  <article class="mega-card">
-                    <p class="mega-card__eyebrow">Đồng bộ hiện trường</p>
-                    <h3>Checkin Online 24/7</h3>
-                    <p>
-                      Tự động hóa chấm công, định vị ca làm việc và kết nối dữ liệu với hệ thống nhân sự chỉ trong một bảng điều khiển.
-                    </p>
-                    <a class="button button--text" href="#checkin-online">Trải nghiệm bản demo</a>
-                  </article>
-                </div>
-                <div class="mega-menu__column mega-menu__column--meta">
-                  <p class="mega-menu__eyebrow">Tài liệu &amp; hỗ trợ</p>
-                  <a class="mega-menu__meta-link" href="#enterprise">
-                    Enterprise Services
-                    <span>Tùy biến triển khai phù hợp doanh nghiệp lớn.</span>
-                  </a>
-                  <a class="mega-menu__meta-link" href="#pricing">
-                    Bảng giá linh hoạt
-                    <span>Chọn gói theo nhu cầu, thanh toán minh bạch.</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <a href="#enterprise" class="site-nav__link">Enterprise</a>
-            <a href="#pricing" class="site-nav__link">Bảng giá</a>
+              </li>
+              <li class="nt-nav__item"><a class="nt-nav__link" href="#enterprise">Enterprise</a></li>
+              <li class="nt-nav__item"><a class="nt-nav__link" href="#pricing">Bảng giá</a></li>
+            </ul>
           </nav>
 
-          <div class="site-header__actions">
+          <div class="nt-header__actions">
             <a class="button button--ghost" href="mailto:hello@ngoctay.io.vn">Liên hệ</a>
-            <div class="site-header__social" aria-label="Kết nối mạng xã hội">
-              <a href="https://www.facebook.com" aria-label="Facebook" class="site-header__social-link">
+            <div class="nt-header__social" aria-label="Kết nối mạng xã hội">
+              <a href="https://www.facebook.com" aria-label="Facebook" class="nt-social-link">
                 <svg viewBox="0 0 16 16" aria-hidden="true">
                   <path
                     d="M9.6 6.4H11V4H9.6C8.16 4 7 5.12 7 6.56V8H5v2.4h2V14h2.4v-3.6H11L11.4 8H9.4V6.76c0-.24.2-.36.2-.36Z"
@@ -140,7 +97,7 @@
                   />
                 </svg>
               </a>
-              <a href="https://www.youtube.com" aria-label="YouTube" class="site-header__social-link">
+              <a href="https://www.youtube.com" aria-label="YouTube" class="nt-social-link">
                 <svg viewBox="0 0 16 16" aria-hidden="true">
                   <path
                     d="M13.5 5.2c-.14-.6-.6-1.06-1.2-1.2C11.3 3.6 8 3.6 8 3.6s-3.3 0-4.3.4c-.6.14-1.06.6-1.2 1.2C2 6.2 2 8 2 8s0 1.8.5 2.8c.14.6.6 1.06 1.2 1.2 1 .4 4.3.4 4.3.4s3.3 0 4.3-.4c.6-.14 1.06-.6 1.2-1.2.5-1 .5-2.8.5-2.8s0-1.8-.5-2.8ZM6.9 10.4V5.6L10.4 8 6.9 10.4Z"
@@ -148,7 +105,7 @@
                   />
                 </svg>
               </a>
-              <a href="https://www.tiktok.com" aria-label="TikTok" class="site-header__social-link">
+              <a href="https://www.tiktok.com" aria-label="TikTok" class="nt-social-link">
                 <svg viewBox="0 0 16 16" aria-hidden="true">
                   <path
                     d="M11.5 5.1c-.62-.22-1.1-.7-1.32-1.32V3H8.6v7.04a1.26 1.26 0 0 1-1.26 1.26c-.7 0-1.26-.56-1.26-1.26.02-.64.52-1.16 1.16-1.2.17 0 .34.02.5.08V7.37a3.34 3.34 0 0 0-.5-.04 3.6 3.6 0 0 0-3.6 3.6 3.6 3.6 0 0 0 3.6 3.6c1.99 0 3.6-1.6 3.6-3.58V7.24c.6.46 1.32.74 2.08.8V5.96c-.52-.02-1.02-.2-1.46-.46Z"
@@ -156,7 +113,7 @@
                   />
                 </svg>
               </a>
-              <a href="https://zalo.me" aria-label="Zalo" class="site-header__social-link">
+              <a href="https://zalo.me" aria-label="Zalo" class="nt-social-link">
                 <svg viewBox="0 0 16 16" aria-hidden="true">
                   <path
                     d="M4.2 4h7.6c.73 0 1.2.48 1.2 1.2v5.6c0 .72-.47 1.2-1.2 1.2H7.1L5 12.8l.4-1.8H4.2C3.47 11 3 10.52 3 9.8V5.2C3 4.48 3.47 4 4.2 4Zm5.82 1.72h-1.4L6.68 9.3h1.44l.18-.52h1.6l.18.52H11L10.02 5.72Zm-.64 1.08.42 1.34H8.94l.42-1.34Z"
@@ -168,33 +125,33 @@
             <a class="button button--primary" href="#platform">Trải nghiệm ngay</a>
           </div>
 
-          <button class="site-header__toggle" aria-label="Mở điều hướng" aria-expanded="false" type="button">
+          <button class="nt-header__toggle" aria-label="Mở điều hướng" aria-expanded="false" type="button">
             <span></span>
             <span></span>
             <span></span>
           </button>
         </div>
 
-        <div class="site-header__drawer" role="dialog" aria-modal="true">
+        <div class="nt-drawer" role="dialog" aria-modal="true">
           <nav aria-label="Điều hướng di động">
-            <details class="drawer-accordion">
+            <details class="nt-drawer__accordion">
               <summary>Sản phẩm</summary>
-              <div class="drawer-accordion__content">
+              <div class="nt-drawer__content">
                 <a href="#pod-redesign">POD Redesign</a>
                 <a href="#home-for-you">Home for you</a>
               </div>
             </details>
-            <details class="drawer-accordion">
+            <details class="nt-drawer__accordion">
               <summary>Giải pháp</summary>
-              <div class="drawer-accordion__content">
+              <div class="nt-drawer__content">
                 <a href="#project-management">Quản lý dự án</a>
                 <a href="#checkin-online">Checkin Online</a>
               </div>
             </details>
-            <a href="#enterprise" class="site-nav__link">Enterprise</a>
-            <a href="#pricing" class="site-nav__link">Bảng giá</a>
+            <a class="nt-drawer__link" href="#enterprise">Enterprise</a>
+            <a class="nt-drawer__link" href="#pricing">Bảng giá</a>
             <a class="button button--ghost" href="mailto:hello@ngoctay.io.vn">Liên hệ</a>
-            <div class="site-header__drawer-social" aria-label="Kết nối mạng xã hội">
+            <div class="nt-drawer__social" aria-label="Kết nối mạng xã hội">
               <a href="https://www.facebook.com" aria-label="Facebook">Facebook</a>
               <a href="https://www.youtube.com" aria-label="YouTube">YouTube</a>
               <a href="https://www.tiktok.com" aria-label="TikTok">TikTok</a>
