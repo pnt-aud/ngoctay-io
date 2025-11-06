@@ -30,15 +30,154 @@
           </a>
 
           <nav class="site-nav" aria-label="Điều hướng chính">
-            <a href="#solutions" class="site-nav__link">Giải pháp</a>
-            <a href="#platform" class="site-nav__link">Nền tảng</a>
-            <a href="#pricing" class="site-nav__link">Bảng giá</a>
-            <a href="#resources" class="site-nav__link">Tài nguyên</a>
+            <div class="site-nav__item site-nav__item--has-menu">
+              <button class="site-nav__trigger" type="button" aria-expanded="false">
+                <span>Sản phẩm</span>
+                <svg viewBox="0 0 12 12" aria-hidden="true">
+                  <path d="M2.5 4.25 6 7.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+              </button>
+              <div class="mega-menu" role="menu">
+                <div class="mega-menu__group">
+                  <p class="mega-menu__label">Core</p>
+                  <a class="mega-menu__link" href="#database">
+                    <span>Database</span>
+                    <small>Postgres hoàn toàn tương thích và portable.</small>
+                  </a>
+                  <a class="mega-menu__link" href="#auth">
+                    <span>Authentication</span>
+                    <small>Quản lý người dùng, phân quyền và SSO.</small>
+                  </a>
+                  <a class="mega-menu__link" href="#storage">
+                    <span>Storage</span>
+                    <small>Lưu trữ file, CDN edge và chính sách bảo mật.</small>
+                  </a>
+                  <a class="mega-menu__link" href="#edge">
+                    <span>Edge Functions</span>
+                    <small>Triển khai code trên Edge trong vài giây.</small>
+                  </a>
+                  <a class="mega-menu__link" href="#realtime">
+                    <span>Realtime</span>
+                    <small>Broadcast và đồng bộ dữ liệu ở mili giây.</small>
+                  </a>
+                </div>
+                <div class="mega-menu__group">
+                  <p class="mega-menu__label">Modules</p>
+                  <a class="mega-menu__link" href="#vector">
+                    <span>Vector</span>
+                    <small>Vector store để quản lý embedding AI.</small>
+                  </a>
+                  <a class="mega-menu__link" href="#cron">
+                    <span>Cron</span>
+                    <small>Lên lịch tác vụ định kỳ không cần server.</small>
+                  </a>
+                  <a class="mega-menu__link" href="#queues">
+                    <span>Queues</span>
+                    <small>Hàng đợi tin nhắn bảo đảm giao nhận.</small>
+                  </a>
+                  <a class="mega-menu__link" href="#features">
+                    <span>Features</span>
+                    <small>Xem thêm các khả năng đang phát triển.</small>
+                  </a>
+                </div>
+                <div class="mega-menu__group mega-menu__group--highlight">
+                  <p class="mega-menu__label">Customer stories</p>
+                  <a class="mega-menu__card" href="#case-juniver">
+                    <strong>Juniver</strong>
+                    <span>Workflow B2B với Edge Functions và Row Level Security.</span>
+                  </a>
+                  <div class="mega-menu__compare">
+                    <p>Compare:</p>
+                    <a href="#compare-firebase">vs Firebase</a>
+                    <a href="#compare-heroku">vs Heroku Postgres</a>
+                    <a href="#compare-auth0">vs Auth0</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="site-nav__item site-nav__item--has-menu">
+              <button class="site-nav__trigger" type="button" aria-expanded="false">
+                <span>Giải pháp</span>
+                <svg viewBox="0 0 12 12" aria-hidden="true">
+                  <path d="M2.5 4.25 6 7.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+              </button>
+              <div class="mega-menu" role="menu">
+                <div class="mega-menu__group">
+                  <p class="mega-menu__label">Theo phòng ban</p>
+                  <a class="mega-menu__link" href="#solution-sales">
+                    <span>Sales Playbooks</span>
+                    <small>Tăng tốc đội sales với pipeline realtime và AI scoring.</small>
+                  </a>
+                  <a class="mega-menu__link" href="#solution-marketing">
+                    <span>Marketing Automation</span>
+                    <small>Hành trình khách hàng đa kênh với trigger realtime.</small>
+                  </a>
+                  <a class="mega-menu__link" href="#solution-support">
+                    <span>Customer Support</span>
+                    <small>Agent AI hỗ trợ khách hàng trên mọi kênh.</small>
+                  </a>
+                </div>
+                <div class="mega-menu__group">
+                  <p class="mega-menu__label">Theo ngành</p>
+                  <a class="mega-menu__link" href="#solution-fintech">
+                    <span>Fintech</span>
+                    <small>Kết nối ngân hàng, eKYC và realtime fraud monitor.</small>
+                  </a>
+                  <a class="mega-menu__link" href="#solution-retail">
+                    <span>Retail &amp; Loyalty</span>
+                    <small>Đồng bộ POS, loyalty và chiến dịch chăm sóc.</small>
+                  </a>
+                  <a class="mega-menu__link" href="#solution-saas">
+                    <span>SaaS</span>
+                    <small>Hạ tầng launch nhanh với billing và dữ liệu đa tenant.</small>
+                  </a>
+                </div>
+                <div class="mega-menu__group mega-menu__group--highlight">
+                  <p class="mega-menu__label">Tài nguyên</p>
+                  <a class="mega-menu__card" href="#playbook">
+                    <strong>Playbook tự động hoá</strong>
+                    <span>Mẫu workflow có sẵn cho marketing và CS.</span>
+                  </a>
+                  <a class="mega-menu__card" href="#demo">
+                    <strong>Demo sandbox</strong>
+                    <span>Trải nghiệm toàn bộ giải pháp trong 7 phút.</span>
+                  </a>
+                </div>
+              </div>
+            </div>
             <a href="#enterprise" class="site-nav__link">Enterprise</a>
+            <a href="#pricing" class="site-nav__link">Bảng giá</a>
           </nav>
 
           <div class="site-header__actions">
             <a class="button button--ghost" href="mailto:hello@ngoctay.io.vn">Liên hệ</a>
+            <div class="site-header__social" aria-label="Kết nối mạng xã hội">
+              <a href="https://www.facebook.com" aria-label="Facebook" class="site-header__social-link">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path
+                    d="M9.6 6.4H11V4H9.6C8.16 4 7 5.12 7 6.56V8H5v2.4h2V14h2.4v-3.6H11L11.4 8H9.4V6.76c0-.24.2-.36.2-.36Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </a>
+              <a href="https://www.tiktok.com" aria-label="TikTok" class="site-header__social-link">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path
+                    d="M11.5 5.1c-.62-.22-1.1-.7-1.32-1.32V3H8.6v7.04a1.26 1.26 0 0 1-1.26 1.26c-.7 0-1.26-.56-1.26-1.26.02-.64.52-1.16 1.16-1.2.17 0 .34.02.5.08V7.37a3.34 3.34 0 0 0-.5-.04 3.6 3.6 0 0 0-3.6 3.6 3.6 3.6 0 0 0 3.6 3.6c1.99 0 3.6-1.6 3.6-3.58V7.24c.6.46 1.32.74 2.08.8V5.96c-.52-.02-1.02-.2-1.46-.46Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </a>
+              <a href="https://zalo.me" aria-label="Zalo" class="site-header__social-link">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path
+                    d="M4.2 4h7.6c.73 0 1.2.48 1.2 1.2v5.6c0 .72-.47 1.2-1.2 1.2H7.1L5 12.8l.4-1.8H4.2C3.47 11 3 10.52 3 9.8V5.2C3 4.48 3.47 4 4.2 4Zm5.82 1.72h-1.4L6.68 9.3h1.44l.18-.52h1.6l.18.52H11L10.02 5.72Zm-.64 1.08.42 1.34H8.94l.42-1.34Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </a>
+            </div>
             <a class="button button--primary" href="#platform">Trải nghiệm ngay</a>
           </div>
 
@@ -51,12 +190,40 @@
 
         <div class="site-header__drawer" role="dialog" aria-modal="true">
           <nav aria-label="Điều hướng di động">
-            <a href="#solutions" class="site-nav__link">Giải pháp</a>
-            <a href="#platform" class="site-nav__link">Nền tảng</a>
-            <a href="#pricing" class="site-nav__link">Bảng giá</a>
-            <a href="#resources" class="site-nav__link">Tài nguyên</a>
+            <details class="drawer-accordion">
+              <summary>Sản phẩm</summary>
+              <div class="drawer-accordion__content">
+                <a href="#database">Database</a>
+                <a href="#auth">Authentication</a>
+                <a href="#storage">Storage</a>
+                <a href="#edge">Edge Functions</a>
+                <a href="#realtime">Realtime</a>
+                <a href="#vector">Vector</a>
+                <a href="#cron">Cron</a>
+                <a href="#queues">Queues</a>
+              </div>
+            </details>
+            <details class="drawer-accordion">
+              <summary>Giải pháp</summary>
+              <div class="drawer-accordion__content">
+                <a href="#solution-sales">Sales Playbooks</a>
+                <a href="#solution-marketing">Marketing Automation</a>
+                <a href="#solution-support">Customer Support</a>
+                <a href="#solution-fintech">Fintech</a>
+                <a href="#solution-retail">Retail &amp; Loyalty</a>
+                <a href="#solution-saas">SaaS</a>
+                <a href="#playbook">Playbook tự động hoá</a>
+                <a href="#demo">Demo sandbox</a>
+              </div>
+            </details>
             <a href="#enterprise" class="site-nav__link">Enterprise</a>
+            <a href="#pricing" class="site-nav__link">Bảng giá</a>
             <a class="button button--ghost" href="mailto:hello@ngoctay.io.vn">Liên hệ</a>
+            <div class="site-header__drawer-social" aria-label="Kết nối mạng xã hội">
+              <a href="https://www.facebook.com" aria-label="Facebook">Facebook</a>
+              <a href="https://www.tiktok.com" aria-label="TikTok">TikTok</a>
+              <a href="https://zalo.me" aria-label="Zalo">Zalo</a>
+            </div>
             <a class="button button--primary" href="#platform">Trải nghiệm ngay</a>
           </nav>
         </div>
