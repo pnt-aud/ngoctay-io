@@ -1,4 +1,21 @@
-@import "./theme.css";
+:root {
+  --color-background: #020510;
+  --color-surface: rgba(11, 18, 31, 0.85);
+  --color-surface-strong: #0b1220;
+  --color-surface-muted: rgba(15, 24, 40, 0.6);
+  --color-border: rgba(67, 111, 129, 0.35);
+  --color-primary: #24b47e;
+  --color-primary-strong: #36fba1;
+  --color-text: #e6f8f1;
+  --color-text-muted: #9fb5c6;
+  --font-sans: "Inter", "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --container-width: 1180px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --shadow-soft: 0 30px 80px rgba(12, 24, 36, 0.45);
+  --shadow-card: 0 18px 50px rgba(0, 0, 0, 0.35);
+}
 
 * {
   box-sizing: border-box;
@@ -297,9 +314,17 @@ main {
   display: inline-flex;
 }
 
-.dot--red { background: #ff5f56; }
-.dot--yellow { background: #ffbd2e; }
-.dot--green { background: #27c93f; }
+.dot--red {
+  background: #ff5f56;
+}
+
+.dot--yellow {
+  background: #ffbd2e;
+}
+
+.dot--green {
+  background: #27c93f;
+}
 
 pre {
   margin: 0;
