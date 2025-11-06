@@ -1,245 +1,273 @@
-import Link from "next/link";
-import { ToolCard } from "@/components/ToolCard";
-import businessTools from "@/data/tools-business.json";
-import personalTools from "@/data/tools-personal.json";
-
-type Tool = {
-  slug: string;
-  name: string;
-  short_description: string;
-  icon: string;
-  cta_url: string;
-  tags: string[];
-};
-
-const business = businessTools as Tool[];
-const personal = personalTools as Tool[];
+const solutionCards = [
+  {
+    title: "Realtime customer 360",
+    description:
+      "Đồng bộ dữ liệu bán hàng, marketing và sản phẩm trong vài phút với pipeline realtime dựa trên Postgres logical replication.",
+    pills: ["Stream", "Warehouse", "Playbooks"],
+  },
+  {
+    title: "Automation studio",
+    description:
+      "Thiết kế workflow không cần code, kích hoạt chiến dịch chăm sóc đa kênh với AI agent chạy trên dữ liệu của bạn.",
+    pills: ["Journeys", "AI Assistants", "Integrations"],
+  },
+  {
+    title: "Observability for AI",
+    description:
+      "Giám sát chất lượng mô hình, tỉ lệ thành công của prompt và hiệu quả vận hành theo thời gian thực.",
+    pills: ["Tracing", "Feedback loop", "Dashboards"],
+  },
+];
 
 const featureHighlights = [
   {
-    icon: "🚀",
-    title: "Chiến lược triển khai rõ ràng",
+    eyebrow: "Realtime as default",
+    title: "Edge infrastructure",
     description:
-      "Bộ khung từng bước giúp đội ngũ xác định mục tiêu, chuẩn hoá dữ liệu và đưa AI vào vận hành thực tế chỉ trong vài tuần.",
+      "Kết nối edge function, database và storage chỉ trong một cú click. Deploy từ Git và scale lên hàng triệu request tự động.",
   },
   {
-    icon: "🤝",
-    title: "Đồng hành cùng chuyên gia",
+    eyebrow: "Open source DNA",
+    title: "Dựa trên Postgres",
     description:
-      "Mỗi giải pháp đều đi kèm hướng dẫn, mẫu tài liệu và hỗ trợ đào tạo để cả doanh nghiệp lẫn cá nhân dễ dàng làm chủ công cụ.",
+      "Toàn bộ nền tảng xây dựng từ công nghệ mở, dễ dàng tự host hoặc mở rộng bằng extension quen thuộc của hệ sinh thái Postgres.",
   },
   {
-    icon: "📊",
-    title: "Đo lường hiệu quả rõ ràng",
+    eyebrow: "Secure by design",
+    title: "Enterprise security",
     description:
-      "Dashboard tiêu chuẩn hoá giúp bạn theo dõi ROI, hiệu suất quy trình và mức độ hài lòng của người dùng sau khi ứng dụng AI.",
+      "Chuẩn SOC2, SSO, ghi log chi tiết và chính sách dữ liệu linh hoạt giúp đội ngũ an tâm triển khai trong môi trường doanh nghiệp.",
+  },
+];
+
+const pricingPlans = [
+  {
+    name: "Starter",
+    price: "Miễn phí",
+    description: "5 triệu sự kiện/tháng · 100 GB storage · Edge functions không giới hạn",
+    cta: "Bắt đầu ngay",
+  },
+  {
+    name: "Growth",
+    price: "$49",
+    description: "Giới hạn linh hoạt, alert realtime, hỗ trợ triển khai 1-1",
+    cta: "Nâng cấp", 
+  },
+  {
+    name: "Enterprise",
+    price: "Liên hệ",
+    description: "SLA 99.99%, private region, hợp đồng tuỳ chỉnh và hỗ trợ 24/7",
+    cta: "Trao đổi với chúng tôi",
   },
 ];
 
 export default function HomePage() {
   return (
-    <main>
-      <section className="hero">
-        <div className="container hero__layout">
-          <div>
-            <span className="hero__badge">Hệ sinh thái triển khai AI bản địa</span>
-            <h1 className="hero__title">Đưa AI vào hoạt động hàng ngày của doanh nghiệp và cá nhân Việt Nam</h1>
-            <p className="hero__subtitle">
-              Ngọc Tây IO tuyển chọn các sản phẩm, quy trình và tài nguyên giúp bạn triển khai AI với kết quả đo lường được,
-              thay vì chỉ dừng ở xu hướng.
+    <div className="page">
+      <section className="hero" id="hero">
+        <div className="container hero__inner">
+          <div className="hero__content">
+            <span className="hero__badge">Supabase inspired</span>
+            <h1>Hạ tầng realtime và workflow automation cho đội ngũ Việt Nam</h1>
+            <p>
+              Ngọc Tây IO Cloud cung cấp Postgres realtime, edge functions và automation studio tích hợp AI. Tạo sản phẩm, vận
+              hành chiến dịch và đo lường hiệu quả trong một nền tảng duy nhất.
             </p>
             <div className="hero__actions">
-              <Link href="/doanh-nghiep" className="button button--primary">
-                Bắt đầu cùng doanh nghiệp
-              </Link>
-              <Link href="/ca-nhan" className="button button--ghost">
-                Công cụ cho cá nhân
-              </Link>
+              <a className="button button--primary" href="#platform">
+                Khởi tạo dự án
+              </a>
+              <a className="button button--ghost" href="#pricing">
+                Xem bảng giá
+              </a>
             </div>
-            <div className="hero__stats">
-              <div className="hero__stat-card">
-                <p className="hero__stat-number">40+</p>
-                <p className="hero__stat-label">Giải pháp đã triển khai thành công</p>
+            <dl className="hero__metrics">
+              <div>
+                <dt>Thời gian triển khai</dt>
+                <dd>15 phút</dd>
               </div>
-              <div className="hero__stat-card">
-                <p className="hero__stat-number">12</p>
-                <p className="hero__stat-label">Ngành nghề được tối ưu hoá quy trình</p>
+              <div>
+                <dt>Latency trung bình</dt>
+                <dd>&lt;40ms</dd>
               </div>
-              <div className="hero__stat-card">
-                <p className="hero__stat-number">6 tuần</p>
-                <p className="hero__stat-label">Thời gian trung bình kích hoạt đội ngũ</p>
+              <div>
+                <dt>Đội ngũ đang sử dụng</dt>
+                <dd>8k+</dd>
               </div>
-              <div className="hero__stat-card">
-                <p className="hero__stat-number">24/7</p>
-                <p className="hero__stat-label">Kho học liệu cập nhật liên tục</p>
-              </div>
-            </div>
+            </dl>
           </div>
           <div className="hero__visual" aria-hidden>
-            <div className="hero__visual-content">
-              <span className="pill">Blueprint triển khai chuẩn hoá</span>
-              <div className="hero__visual-card">
-                <strong>Bảng điều phối dự án</strong>
-                <p>Phân rã mục tiêu, xác định KPI và phân công rõ người chịu trách nhiệm cho từng hạng mục.</p>
+            <div className="code-window">
+              <div className="code-window__header">
+                <span className="dot dot--red" />
+                <span className="dot dot--yellow" />
+                <span className="dot dot--green" />
               </div>
-              <div className="hero__visual-card">
-                <strong>Kho prompt theo vai trò</strong>
-                <p>Hướng dẫn chi tiết cho marketing, sales, vận hành và cá nhân để tạo giá trị ngay từ ngày đầu.</p>
-              </div>
-              <div className="hero__visual-card">
-                <strong>Đánh giá trưởng thành AI</strong>
-                <p>Chấm điểm mức độ sẵn sàng của tổ chức, đề xuất bước đi tiếp theo dựa trên dữ liệu thực tế.</p>
-              </div>
+              <pre>
+                <code>
+{`import { createClient } from "@ngoctay-io/sdks";
+
+const client = createClient({
+  projectRef: "vietstack-edge",
+  apiKey: process.env.NGOCTAY_KEY,
+});
+
+const { data } = await client
+  .from("orders")
+  .on("INSERT", (payload) => {
+    triggerWorkflow("care", payload.new.customer_id);
+  })
+  .subscribe();`}
+                </code>
+              </pre>
             </div>
+            <div className="hero__glow" />
           </div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="section__header">
-            <span className="pill">Lựa chọn theo mục tiêu</span>
-            <h2 className="section__title">Chọn nhánh phù hợp với hành trình chuyển đổi của bạn</h2>
-            <p className="section__description">
-              Dù bạn đang tối ưu vận hành doanh nghiệp hay xây dựng thói quen làm việc thông minh cho bản thân, chúng tôi đều
-              có lộ trình cụ thể để bạn triển khai AI một cách hiệu quả.
-            </p>
-          </div>
-          <div className="category-grid">
-            <Link href="/doanh-nghiep" className="category-card">
-              <h3 className="category-card__title">Giải pháp cho doanh nghiệp</h3>
-              <p className="category-card__description">
-                Tự động hoá marketing, bán hàng, vận hành và chăm sóc khách hàng bằng hệ thống AI đã kiểm chứng.
-              </p>
-              <div className="tag-list">
-                <span className="chip chip--outline">Workflow AI</span>
-                <span className="chip chip--outline">CRM thông minh</span>
-                <span className="chip chip--outline">Báo cáo realtime</span>
-              </div>
-              <div className="category-card__footer">
-                <span>Khởi động ngay</span>
-                <span aria-hidden>→</span>
-              </div>
-            </Link>
-            <Link href="/ca-nhan" className="category-card">
-              <h3 className="category-card__title">Công cụ dành cho cá nhân</h3>
-              <p className="category-card__description">
-                Xây dựng thói quen học tập, sáng tạo nội dung và quản lý tài chính với trợ lý AI cá nhân hoá cho người Việt.
-              </p>
-              <div className="tag-list">
-                <span className="chip chip--outline">Sáng tạo nội dung</span>
-                <span className="chip chip--outline">Quản lý thời gian</span>
-                <span className="chip chip--outline">Huấn luyện kỹ năng</span>
-              </div>
-              <div className="category-card__footer">
-                <span>Khám phá ngay</span>
-                <span aria-hidden>→</span>
-              </div>
-            </Link>
+      <section className="section section--muted" id="trusted">
+        <div className="container trusted">
+          <p>Được tin dùng bởi các đội ngũ phát triển sản phẩm hàng đầu</p>
+          <div className="trusted__logos">
+            <span>VietStack</span>
+            <span>NextVision</span>
+            <span>HanoiOps</span>
+            <span>Saigon Data</span>
+            <span>CloudNative VN</span>
           </div>
         </div>
       </section>
 
-      <section className="section section--dense">
+      <section className="section" id="solutions">
         <div className="container">
           <div className="section__header">
-            <span className="pill">Vì sao chọn Ngọc Tây IO</span>
-            <h2 className="section__title">Tập trung vào hiệu quả và trải nghiệm người dùng</h2>
-            <p className="section__description">
-              Mỗi hạng mục đều được đội ngũ chuyên gia công nghệ, vận hành và đào tạo của chúng tôi kiểm định trước khi đưa
-              vào hệ sinh thái để đảm bảo phù hợp với bối cảnh Việt Nam.
-            </p>
+            <span className="section__eyebrow">Solutions</span>
+            <h2>Từ realtime backend đến workflow AI-first</h2>
+            <p>Chọn mô-đun phù hợp để tăng tốc sản phẩm mà không cần xây dựng hạ tầng từ đầu.</p>
           </div>
-          <div className="feature-grid">
-            {featureHighlights.map((feature) => (
-              <article key={feature.title} className="feature-card">
-                <div className="feature-card__icon" aria-hidden>
-                  {feature.icon}
+          <div className="card-grid">
+            {solutionCards.map((solution) => (
+              <article key={solution.title} className="card">
+                <div className="card__shine" aria-hidden />
+                <h3>{solution.title}</h3>
+                <p>{solution.description}</p>
+                <div className="card__pills">
+                  {solution.pills.map((pill) => (
+                    <span key={pill}>{pill}</span>
+                  ))}
                 </div>
-                <h3 className="feature-card__title">{feature.title}</h3>
-                <p className="feature-card__description">{feature.description}</p>
+                <a className="card__link" href="#platform">
+                  Khám phá →
+                </a>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section section--dense">
-        <div className="container">
-          <div className="section__header">
-            <span className="pill">Bảng xếp hạng công cụ</span>
-            <h2 className="section__title">Những giải pháp nổi bật được cộng đồng tin dùng</h2>
-            <p className="section__description">
-              Các công cụ được đánh giá cao dựa trên khả năng triển khai thực tế, hỗ trợ từ nhà cung cấp và độ hài lòng của
-              người dùng.
+      <section className="section" id="platform">
+        <div className="container platform">
+          <div className="platform__content">
+            <span className="section__eyebrow">Platform</span>
+            <h2>Build nhanh, scale linh hoạt</h2>
+            <p>
+              Kết hợp Postgres managed, Auth, Storage và Edge Functions trên cùng một UI. Mọi thứ được giám sát bằng bảng điều
+              khiển realtime và có thể mở rộng bằng SDK open-source.
             </p>
+            <ul>
+              <li>Auth với SSO, OTP, Magic Link, Row Level Security</li>
+              <li>Storage phân lớp, CDN edge và image transformation</li>
+              <li>CLI và Studio UI giúp triển khai chỉ trong vài phút</li>
+            </ul>
+            <div className="platform__actions">
+              <a className="button button--primary" href="#resources">
+                Xem tài liệu
+              </a>
+              <a className="button button--text" href="#enterprise">
+                So sánh với giải pháp khác
+              </a>
+            </div>
           </div>
-          <div className="showcase-grid">
-            <div>
-              <div className="section__header section--dense">
-                <h3 className="section__title" style={{ fontSize: "1.5rem" }}>
-                  Cho doanh nghiệp
-                </h3>
-                <p className="section__description">
-                  Tập trung vào tối ưu quy trình và tăng trưởng doanh thu với AI.
-                </p>
+          <div className="platform__preview" aria-hidden>
+            <div className="preview-card">
+              <div className="preview-card__header">
+                <span>Deploy workflow</span>
+                <span className="badge">Production</span>
               </div>
-              <div className="tool-showcase">
-                {business.slice(0, 3).map((tool) => (
-                  <Link key={tool.slug} href={`/doanh-nghiep/${tool.slug}`} className="tool-link">
-                    <ToolCard {...tool} />
-                  </Link>
-                ))}
-              </div>
-              <div className="insight-card">
-                <strong>Gợi ý chuyên gia:</strong> Bắt đầu với một quy trình đơn giản như xử lý lead, sau đó mở rộng sang các
-                phòng ban khác để đảm bảo khả năng thích ứng của đội ngũ.
-              </div>
+              <ul>
+                <li>
+                  <span>Realtime stream</span>
+                  <span>Active</span>
+                </li>
+                <li>
+                  <span>Automation Studio</span>
+                  <span>4 runs/min</span>
+                </li>
+                <li>
+                  <span>Edge Functions</span>
+                  <span>27ms</span>
+                </li>
+                <li>
+                  <span>Storage CDN</span>
+                  <span>Regional</span>
+                </li>
+              </ul>
             </div>
-            <div>
-              <div className="section__header section--dense">
-                <h3 className="section__title" style={{ fontSize: "1.5rem" }}>
-                  Cho cá nhân
-                </h3>
-                <p className="section__description">
-                  Tăng tốc học tập, sáng tạo và quản lý cuộc sống với trợ lý AI cá nhân.
-                </p>
-              </div>
-              <div className="tool-showcase">
-                {personal.slice(0, 3).map((tool) => (
-                  <Link key={tool.slug} href={`/ca-nhan/${tool.slug}`} className="tool-link">
-                    <ToolCard {...tool} />
-                  </Link>
-                ))}
-              </div>
-              <div className="insight-card">
-                <strong>Mẹo sử dụng:</strong> Duy trì nhật ký kết quả hàng tuần để đánh giá mức độ hỗ trợ của công cụ và điều
-                chỉnh mục tiêu phù hợp.
-              </div>
-            </div>
+            <div className="platform__orb" />
           </div>
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section--muted" id="enterprise">
+        <div className="container feature-grid">
+          {featureHighlights.map((feature) => (
+            <article key={feature.title} className="feature">
+              <span className="feature__eyebrow">{feature.eyebrow}</span>
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section" id="pricing">
         <div className="container">
-          <div className="cta-banner">
-            <h2>Biến ý tưởng AI thành kết quả thực tế</h2>
-            <p>
-              Đặt lịch cùng đội ngũ Ngọc Tây IO để nhận tư vấn về lộ trình triển khai, lựa chọn công cụ và chương trình đào
-              tạo phù hợp với mục tiêu của bạn.
-            </p>
-            <div className="cta-banner__actions">
-              <a className="button button--primary" href="mailto:hello@ngoctay.io.vn">
-                Nhận tư vấn 1-1
-              </a>
-              <Link href="/doanh-nghiep" className="button button--ghost">
-                Xem kế hoạch mẫu
-              </Link>
-            </div>
+          <div className="section__header">
+            <span className="section__eyebrow">Pricing</span>
+            <h2>Linh hoạt theo từng giai đoạn phát triển</h2>
+            <p>Chỉ trả tiền khi bạn scale, miễn phí cho các dự án thử nghiệm và đội ngũ mới.</p>
+          </div>
+          <div className="pricing-grid">
+            {pricingPlans.map((plan) => (
+              <article key={plan.name} className="pricing">
+                <div className="pricing__badge">{plan.name}</div>
+                <h3>{plan.price}</h3>
+                <p>{plan.description}</p>
+                <a className="button button--ghost" href="#contact">
+                  {plan.cta}
+                </a>
+              </article>
+            ))}
           </div>
         </div>
       </section>
-    </main>
+
+      <section className="section section--muted" id="resources">
+        <div className="container cta">
+          <div>
+            <span className="section__eyebrow">Resources</span>
+            <h2>Xây dựng sản phẩm tiếp theo trên Ngọc Tây IO</h2>
+            <p>
+              Thư viện template, hướng dẫn tích hợp SDK và cộng đồng builder giúp bạn giải quyết mọi bài toán realtime và
+              automation.
+            </p>
+          </div>
+          <a className="button button--primary" href="mailto:hello@ngoctay.io.vn">
+            Nhận tư vấn chuyên sâu
+          </a>
+        </div>
+      </section>
+    </div>
   );
 }

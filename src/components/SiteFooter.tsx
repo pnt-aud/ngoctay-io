@@ -1,28 +1,26 @@
-import Link from "next/link";
-
-const footerLinks = [
-  {
-    title: "Nguồn lực",
-    items: [
-      { label: "Blog AI", href: "https://ngoctay.io.vn/blog" },
-      { label: "Tài nguyên miễn phí", href: "https://ngoctay.io.vn/resources" },
-      { label: "Sự kiện", href: "https://ngoctay.io.vn/events" },
-    ],
-  },
+const footerGroups = [
   {
     title: "Sản phẩm",
-    items: [
-      { label: "Cho doanh nghiệp", href: "/doanh-nghiep" },
-      { label: "Cho cá nhân", href: "/ca-nhan" },
-      { label: "Đối tác", href: "https://ngoctay.io.vn/partners" },
+    links: [
+      { label: "Realtime Edge", href: "#platform" },
+      { label: "Automation Studio", href: "#solutions" },
+      { label: "Observability", href: "#enterprise" },
     ],
   },
   {
-    title: "Kết nối",
-    items: [
-      { label: "hello@ngoctay.io.vn", href: "mailto:hello@ngoctay.io.vn" },
-      { label: "LinkedIn", href: "https://www.linkedin.com" },
-      { label: "Facebook", href: "https://www.facebook.com" },
+    title: "Nguồn lực",
+    links: [
+      { label: "Tài liệu kỹ thuật", href: "#resources" },
+      { label: "Bản cập nhật", href: "#changelog" },
+      { label: "Cộng đồng", href: "https://discord.gg" },
+    ],
+  },
+  {
+    title: "Công ty",
+    links: [
+      { label: "Về Ngọc Tây", href: "#about" },
+      { label: "Tuyển dụng", href: "#careers" },
+      { label: "Liên hệ", href: "mailto:hello@ngoctay.io.vn" },
     ],
   },
 ];
@@ -32,31 +30,25 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="container site-footer__inner">
         <div className="site-footer__brand">
-          <div className="site-footer__badge">NT</div>
+          <div className="site-footer__logo">NT</div>
           <div>
-            <p className="site-footer__title">Ngọc Tây IO</p>
+            <p className="site-footer__title">Ngọc Tây IO Cloud</p>
             <p className="site-footer__description">
-              Nền tảng giúp doanh nghiệp và cá nhân Việt Nam khai thác sức mạnh của AI một cách thực tế và bền vững.
+              Nền tảng dữ liệu realtime và workflow automation giúp đội ngũ Việt Nam triển khai sản phẩm AI trong vài ngày.
             </p>
           </div>
         </div>
 
-        <div className="site-footer__links">
-          {footerLinks.map((group) => (
+        <div className="site-footer__grid">
+          {footerGroups.map((group) => (
             <div key={group.title} className="site-footer__column">
               <p className="site-footer__column-title">{group.title}</p>
               <ul>
-                {group.items.map((item) => (
-                  <li key={item.label}>
-                    {item.href.startsWith("/") ? (
-                      <Link href={item.href} className="site-footer__link">
-                        {item.label}
-                      </Link>
-                    ) : (
-                      <a href={item.href} className="site-footer__link" target="_blank" rel="noopener noreferrer">
-                        {item.label}
-                      </a>
-                    )}
+                {group.links.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="site-footer__link">
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -64,12 +56,14 @@ export function SiteFooter() {
           ))}
         </div>
       </div>
+
       <div className="site-footer__bottom">
         <div className="container site-footer__bottom-inner">
-          <p>© {new Date().getFullYear()} Ngọc Tây IO. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Ngọc Tây IO. Crafted for builders.</p>
           <div className="site-footer__legal">
-            <Link href="/">Điều khoản</Link>
-            <Link href="/">Bảo mật</Link>
+            <a href="#privacy">Bảo mật</a>
+            <a href="#terms">Điều khoản</a>
+            <a href="#status">Status</a>
           </div>
         </div>
       </div>

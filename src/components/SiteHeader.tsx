@@ -1,47 +1,74 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 const navigation = [
-  { href: "/", label: "Trang chủ" },
-  { href: "/doanh-nghiep", label: "Cho doanh nghiệp" },
-  { href: "/ca-nhan", label: "Cho cá nhân" },
+  { href: "#solutions", label: "Giải pháp" },
+  { href: "#platform", label: "Nền tảng" },
+  { href: "#pricing", label: "Bảng giá" },
+  { href: "#resources", label: "Tài nguyên" },
+  { href: "#enterprise", label: "Enterprise" },
 ];
 
 export function SiteHeader() {
-  const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="site-header">
+    <header className="site-header" data-expanded={isMenuOpen ? "true" : undefined}>
+      <div className="site-header__glow" aria-hidden />
       <div className="container site-header__inner">
         <Link href="/" className="site-header__brand" aria-label="Ngọc Tây IO">
-          <span className="site-header__badge">NT</span>
-          <span className="site-header__title">
-            Ngọc Tây <span>IO</span>
-          </span>
+          <span className="site-header__logo">NT</span>
+          <div className="site-header__title">
+            <strong>Ngọc Tây</strong>
+            <span>IO Cloud</span>
+          </div>
         </Link>
 
-        <nav className="site-nav" aria-label="Chuyên mục chính">
-          {navigation.map((item) => {
-            const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={isActive ? "site-nav__link site-nav__link--active" : "site-nav__link"}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+        <nav className="site-nav" aria-label="Điều hướng chính">
+          {navigation.map((item) => (
+            <a key={item.href} href={item.href} className="site-nav__link">
+              {item.label}
+            </a>
+          ))}
         </nav>
 
-        <div className="site-header__cta">
+        <div className="site-header__actions">
           <a className="button button--ghost" href="mailto:hello@ngoctay.io.vn">
-            Liên hệ tư vấn
+            Liên hệ
+          </a>
+          <a className="button button--primary" href="#platform">
+            Trải nghiệm ngay
           </a>
         </div>
+
+        <button
+          className="site-header__toggle"
+          aria-label="Mở điều hướng"
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+      </div>
+
+      <div className="site-header__drawer" role="dialog" aria-modal="true">
+        <nav aria-label="Điều hướng di động">
+          {navigation.map((item) => (
+            <a key={item.href} href={item.href} className="site-nav__link" onClick={() => setIsMenuOpen(false)}>
+              {item.label}
+            </a>
+          ))}
+          <a className="button button--ghost" href="mailto:hello@ngoctay.io.vn">
+            Liên hệ
+          </a>
+          <a className="button button--primary" href="#platform">
+            Trải nghiệm ngay
+          </a>
+        </nav>
       </div>
     </header>
   );
