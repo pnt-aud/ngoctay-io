@@ -47,6 +47,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (navItems.length) {
     const matchDesktop = window.matchMedia("(min-width: 1025px)");
 
+    const updateMegaState = () => {
+      const anyOpen = Array.from(navItems).some((navItem) => navItem.classList.contains("is-open"));
+      if (anyOpen) {
+        header.dataset.mega = "open";
+      } else {
+        delete header.dataset.mega;
+      }
+    };
+
     const closeAllMegaMenus = () => {
       navItems.forEach((item) => {
         const trigger = item.querySelector(".site-nav__trigger");
@@ -57,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         item.classList.remove("is-open");
         trigger.setAttribute("aria-expanded", "false");
       });
+      updateMegaState();
     };
 
     navItems.forEach((item) => {
@@ -71,11 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
         closeAllMegaMenus();
         item.classList.add("is-open");
         trigger.setAttribute("aria-expanded", "true");
+        updateMegaState();
       };
 
       const closeMegaMenu = () => {
         item.classList.remove("is-open");
         trigger.setAttribute("aria-expanded", "false");
+        updateMegaState();
       };
 
       trigger.addEventListener("click", (event) => {

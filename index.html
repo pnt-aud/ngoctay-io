@@ -20,6 +20,7 @@
     <div class="app-shell">
       <header class="site-header">
         <div class="site-header__glow" aria-hidden="true"></div>
+        <div class="site-header__backdrop" aria-hidden="true"></div>
         <div class="container site-header__inner">
           <a href="#hero" class="site-header__brand" aria-label="Ngọc Tây IO">
             <span class="site-header__logo">NT</span>
@@ -31,117 +32,95 @@
 
           <nav class="site-nav" aria-label="Điều hướng chính">
             <div class="site-nav__item site-nav__item--has-menu">
-              <button class="site-nav__trigger" type="button" aria-expanded="false">
+              <button
+                class="site-nav__trigger"
+                type="button"
+                aria-expanded="false"
+                aria-controls="mega-products"
+              >
                 <span>Sản phẩm</span>
                 <svg viewBox="0 0 12 12" aria-hidden="true">
                   <path d="M2.5 4.25 6 7.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                 </svg>
               </button>
-              <div class="mega-menu" role="menu">
-                <div class="mega-menu__group">
-                  <p class="mega-menu__label">Core</p>
-                  <a class="mega-menu__link" href="#database">
-                    <span>Database</span>
-                    <small>Postgres hoàn toàn tương thích và portable.</small>
+              <div class="mega-menu" id="mega-products" role="menu">
+                <div class="mega-menu__column mega-menu__column--list">
+                  <p class="mega-menu__eyebrow">Danh mục sản phẩm</p>
+                  <a class="mega-menu__link" href="#pod-redesign">
+                    <span>POD Redesign</span>
+                    <small>Tạo sinh thiết kế mới cùng idea.</small>
                   </a>
-                  <a class="mega-menu__link" href="#auth">
-                    <span>Authentication</span>
-                    <small>Quản lý người dùng, phân quyền và SSO.</small>
-                  </a>
-                  <a class="mega-menu__link" href="#storage">
-                    <span>Storage</span>
-                    <small>Lưu trữ file, CDN edge và chính sách bảo mật.</small>
-                  </a>
-                  <a class="mega-menu__link" href="#edge">
-                    <span>Edge Functions</span>
-                    <small>Triển khai code trên Edge trong vài giây.</small>
-                  </a>
-                  <a class="mega-menu__link" href="#realtime">
-                    <span>Realtime</span>
-                    <small>Broadcast và đồng bộ dữ liệu ở mili giây.</small>
+                  <a class="mega-menu__link" href="#home-for-you">
+                    <span>Home for you</span>
+                    <small>Tạo ý tưởng cho ngôi nhà của bạn.</small>
                   </a>
                 </div>
-                <div class="mega-menu__group">
-                  <p class="mega-menu__label">Modules</p>
-                  <a class="mega-menu__link" href="#vector">
-                    <span>Vector</span>
-                    <small>Vector store để quản lý embedding AI.</small>
-                  </a>
-                  <a class="mega-menu__link" href="#cron">
-                    <span>Cron</span>
-                    <small>Lên lịch tác vụ định kỳ không cần server.</small>
-                  </a>
-                  <a class="mega-menu__link" href="#queues">
-                    <span>Queues</span>
-                    <small>Hàng đợi tin nhắn bảo đảm giao nhận.</small>
-                  </a>
-                  <a class="mega-menu__link" href="#features">
-                    <span>Features</span>
-                    <small>Xem thêm các khả năng đang phát triển.</small>
-                  </a>
+                <div class="mega-menu__column mega-menu__column--feature">
+                  <article class="mega-card">
+                    <p class="mega-card__eyebrow">Dành cho designer</p>
+                    <h3>POD Redesign Studio</h3>
+                    <p>
+                      Bộ công cụ trực quan giúp đội ngũ sáng tạo phát triển mẫu in POD mới nhanh chóng và đồng nhất.
+                    </p>
+                    <a class="button button--text" href="#pod-redesign">Khám phá ngay</a>
+                  </article>
                 </div>
-                <div class="mega-menu__group mega-menu__group--highlight">
-                  <p class="mega-menu__label">Customer stories</p>
-                  <a class="mega-menu__card" href="#case-juniver">
-                    <strong>Juniver</strong>
-                    <span>Workflow B2B với Edge Functions và Row Level Security.</span>
+                <div class="mega-menu__column mega-menu__column--meta">
+                  <p class="mega-menu__eyebrow">Tài nguyên nổi bật</p>
+                  <a class="mega-menu__meta-link" href="#platform">
+                    Tổng quan nền tảng
+                    <span>Tính năng realtime, workflow và AI-first.</span>
                   </a>
-                  <div class="mega-menu__compare">
-                    <p>Compare:</p>
-                    <a href="#compare-firebase">vs Firebase</a>
-                    <a href="#compare-heroku">vs Heroku Postgres</a>
-                    <a href="#compare-auth0">vs Auth0</a>
-                  </div>
+                  <a class="mega-menu__meta-link" href="mailto:hello@ngoctay.io.vn">
+                    Đặt lịch demo
+                    <span>Nhận tư vấn trực tiếp từ đội ngũ chuyên gia.</span>
+                  </a>
                 </div>
               </div>
             </div>
             <div class="site-nav__item site-nav__item--has-menu">
-              <button class="site-nav__trigger" type="button" aria-expanded="false">
+              <button
+                class="site-nav__trigger"
+                type="button"
+                aria-expanded="false"
+                aria-controls="mega-solutions"
+              >
                 <span>Giải pháp</span>
                 <svg viewBox="0 0 12 12" aria-hidden="true">
                   <path d="M2.5 4.25 6 7.75l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                 </svg>
               </button>
-              <div class="mega-menu" role="menu">
-                <div class="mega-menu__group">
-                  <p class="mega-menu__label">Theo phòng ban</p>
-                  <a class="mega-menu__link" href="#solution-sales">
-                    <span>Sales Playbooks</span>
-                    <small>Tăng tốc đội sales với pipeline realtime và AI scoring.</small>
+              <div class="mega-menu" id="mega-solutions" role="menu">
+                <div class="mega-menu__column mega-menu__column--list">
+                  <p class="mega-menu__eyebrow">Danh mục giải pháp</p>
+                  <a class="mega-menu__link" href="#project-management">
+                    <span>Quản lý dự án</span>
+                    <small>Quản lý dự án cho ngành xây dựng, kiến trúc.</small>
                   </a>
-                  <a class="mega-menu__link" href="#solution-marketing">
-                    <span>Marketing Automation</span>
-                    <small>Hành trình khách hàng đa kênh với trigger realtime.</small>
-                  </a>
-                  <a class="mega-menu__link" href="#solution-support">
-                    <span>Customer Support</span>
-                    <small>Agent AI hỗ trợ khách hàng trên mọi kênh.</small>
+                  <a class="mega-menu__link" href="#checkin-online">
+                    <span>Checkin Online</span>
+                    <small>Giải pháp chấm công tự động.</small>
                   </a>
                 </div>
-                <div class="mega-menu__group">
-                  <p class="mega-menu__label">Theo ngành</p>
-                  <a class="mega-menu__link" href="#solution-fintech">
-                    <span>Fintech</span>
-                    <small>Kết nối ngân hàng, eKYC và realtime fraud monitor.</small>
-                  </a>
-                  <a class="mega-menu__link" href="#solution-retail">
-                    <span>Retail &amp; Loyalty</span>
-                    <small>Đồng bộ POS, loyalty và chiến dịch chăm sóc.</small>
-                  </a>
-                  <a class="mega-menu__link" href="#solution-saas">
-                    <span>SaaS</span>
-                    <small>Hạ tầng launch nhanh với billing và dữ liệu đa tenant.</small>
-                  </a>
+                <div class="mega-menu__column mega-menu__column--feature">
+                  <article class="mega-card">
+                    <p class="mega-card__eyebrow">Đồng bộ hiện trường</p>
+                    <h3>Checkin Online 24/7</h3>
+                    <p>
+                      Tự động hóa chấm công, định vị ca làm việc và kết nối dữ liệu với hệ thống nhân sự chỉ trong một bảng điều khiển.
+                    </p>
+                    <a class="button button--text" href="#checkin-online">Trải nghiệm bản demo</a>
+                  </article>
                 </div>
-                <div class="mega-menu__group mega-menu__group--highlight">
-                  <p class="mega-menu__label">Tài nguyên</p>
-                  <a class="mega-menu__card" href="#playbook">
-                    <strong>Playbook tự động hoá</strong>
-                    <span>Mẫu workflow có sẵn cho marketing và CS.</span>
+                <div class="mega-menu__column mega-menu__column--meta">
+                  <p class="mega-menu__eyebrow">Tài liệu &amp; hỗ trợ</p>
+                  <a class="mega-menu__meta-link" href="#enterprise">
+                    Enterprise Services
+                    <span>Tùy biến triển khai phù hợp doanh nghiệp lớn.</span>
                   </a>
-                  <a class="mega-menu__card" href="#demo">
-                    <strong>Demo sandbox</strong>
-                    <span>Trải nghiệm toàn bộ giải pháp trong 7 phút.</span>
+                  <a class="mega-menu__meta-link" href="#pricing">
+                    Bảng giá linh hoạt
+                    <span>Chọn gói theo nhu cầu, thanh toán minh bạch.</span>
                   </a>
                 </div>
               </div>
@@ -157,6 +136,14 @@
                 <svg viewBox="0 0 16 16" aria-hidden="true">
                   <path
                     d="M9.6 6.4H11V4H9.6C8.16 4 7 5.12 7 6.56V8H5v2.4h2V14h2.4v-3.6H11L11.4 8H9.4V6.76c0-.24.2-.36.2-.36Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </a>
+              <a href="https://www.youtube.com" aria-label="YouTube" class="site-header__social-link">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path
+                    d="M13.5 5.2c-.14-.6-.6-1.06-1.2-1.2C11.3 3.6 8 3.6 8 3.6s-3.3 0-4.3.4c-.6.14-1.06.6-1.2 1.2C2 6.2 2 8 2 8s0 1.8.5 2.8c.14.6.6 1.06 1.2 1.2 1 .4 4.3.4 4.3.4s3.3 0 4.3-.4c.6-.14 1.06-.6 1.2-1.2.5-1 .5-2.8.5-2.8s0-1.8-.5-2.8ZM6.9 10.4V5.6L10.4 8 6.9 10.4Z"
                     fill="currentColor"
                   />
                 </svg>
@@ -193,27 +180,15 @@
             <details class="drawer-accordion">
               <summary>Sản phẩm</summary>
               <div class="drawer-accordion__content">
-                <a href="#database">Database</a>
-                <a href="#auth">Authentication</a>
-                <a href="#storage">Storage</a>
-                <a href="#edge">Edge Functions</a>
-                <a href="#realtime">Realtime</a>
-                <a href="#vector">Vector</a>
-                <a href="#cron">Cron</a>
-                <a href="#queues">Queues</a>
+                <a href="#pod-redesign">POD Redesign</a>
+                <a href="#home-for-you">Home for you</a>
               </div>
             </details>
             <details class="drawer-accordion">
               <summary>Giải pháp</summary>
               <div class="drawer-accordion__content">
-                <a href="#solution-sales">Sales Playbooks</a>
-                <a href="#solution-marketing">Marketing Automation</a>
-                <a href="#solution-support">Customer Support</a>
-                <a href="#solution-fintech">Fintech</a>
-                <a href="#solution-retail">Retail &amp; Loyalty</a>
-                <a href="#solution-saas">SaaS</a>
-                <a href="#playbook">Playbook tự động hoá</a>
-                <a href="#demo">Demo sandbox</a>
+                <a href="#project-management">Quản lý dự án</a>
+                <a href="#checkin-online">Checkin Online</a>
               </div>
             </details>
             <a href="#enterprise" class="site-nav__link">Enterprise</a>
@@ -221,6 +196,7 @@
             <a class="button button--ghost" href="mailto:hello@ngoctay.io.vn">Liên hệ</a>
             <div class="site-header__drawer-social" aria-label="Kết nối mạng xã hội">
               <a href="https://www.facebook.com" aria-label="Facebook">Facebook</a>
+              <a href="https://www.youtube.com" aria-label="YouTube">YouTube</a>
               <a href="https://www.tiktok.com" aria-label="TikTok">TikTok</a>
               <a href="https://zalo.me" aria-label="Zalo">Zalo</a>
             </div>
