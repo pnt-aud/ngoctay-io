@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ngọc Tây IO Cloud</title>
+    <meta
+      name="description"
+      content="Hạ tầng realtime, workflow automation và bộ công cụ AI-first lấy cảm hứng từ Supabase, tối ưu cho đội ngũ Việt Nam."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="app-body">
+    <div class="app-shell">
+      <header class="site-header">
+        <div class="site-header__glow" aria-hidden="true"></div>
+        <div class="container site-header__inner">
+          <a href="#hero" class="site-header__brand" aria-label="Ngọc Tây IO">
+            <span class="site-header__logo">NT</span>
+            <div class="site-header__title">
+              <strong>Ngọc Tây</strong>
+              <span>IO Cloud</span>
+            </div>
+          </a>
+
+          <nav class="site-nav" aria-label="Điều hướng chính">
+            <a href="#solutions" class="site-nav__link">Giải pháp</a>
+            <a href="#platform" class="site-nav__link">Nền tảng</a>
+            <a href="#pricing" class="site-nav__link">Bảng giá</a>
+            <a href="#resources" class="site-nav__link">Tài nguyên</a>
+            <a href="#enterprise" class="site-nav__link">Enterprise</a>
+          </nav>
+
+          <div class="site-header__actions">
+            <a class="button button--ghost" href="mailto:hello@ngoctay.io.vn">Liên hệ</a>
+            <a class="button button--primary" href="#platform">Trải nghiệm ngay</a>
+          </div>
+
+          <button class="site-header__toggle" aria-label="Mở điều hướng" aria-expanded="false" type="button">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+        <div class="site-header__drawer" role="dialog" aria-modal="true">
+          <nav aria-label="Điều hướng di động">
+            <a href="#solutions" class="site-nav__link">Giải pháp</a>
+            <a href="#platform" class="site-nav__link">Nền tảng</a>
+            <a href="#pricing" class="site-nav__link">Bảng giá</a>
+            <a href="#resources" class="site-nav__link">Tài nguyên</a>
+            <a href="#enterprise" class="site-nav__link">Enterprise</a>
+            <a class="button button--ghost" href="mailto:hello@ngoctay.io.vn">Liên hệ</a>
+            <a class="button button--primary" href="#platform">Trải nghiệm ngay</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" id="hero">
+          <div class="container hero__inner">
+            <div class="hero__content">
+              <span class="hero__badge">Supabase inspired</span>
+              <h1>Hạ tầng realtime và workflow automation cho đội ngũ Việt Nam</h1>
+              <p>
+                Ngọc Tây IO Cloud cung cấp Postgres realtime, edge functions và automation studio tích hợp AI. Tạo sản phẩm,
+                vận hành chiến dịch và đo lường hiệu quả trong một nền tảng duy nhất.
+              </p>
+              <div class="hero__actions">
+                <a class="button button--primary" href="#platform">Khởi tạo dự án</a>
+                <a class="button button--ghost" href="#pricing">Xem bảng giá</a>
+              </div>
+              <dl class="hero__metrics">
+                <div>
+                  <dt>Thời gian triển khai</dt>
+                  <dd>15 phút</dd>
+                </div>
+                <div>
+                  <dt>Latency trung bình</dt>
+                  <dd>&lt;40ms</dd>
+                </div>
+                <div>
+                  <dt>Đội ngũ đang sử dụng</dt>
+                  <dd>8k+</dd>
+                </div>
+              </dl>
+            </div>
+            <div class="hero__visual" aria-hidden="true">
+              <div class="code-window">
+                <div class="code-window__header">
+                  <span class="dot dot--red"></span>
+                  <span class="dot dot--yellow"></span>
+                  <span class="dot dot--green"></span>
+                </div>
+                <pre><code>import { createClient } from "@ngoctay-io/sdks";
+
+const client = createClient({
+  projectRef: "vietstack-edge",
+  apiKey: process.env.NGOCTAY_KEY,
+});
+
+const { data } = await client
+  .from("orders")
+  .on("INSERT", (payload) => {
+    triggerWorkflow("care", payload.new.customer_id);
+  })
+  .subscribe();</code></pre>
+              </div>
+              <div class="hero__glow"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--muted" id="trusted">
+          <div class="container trusted">
+            <p>Được tin dùng bởi các đội ngũ phát triển sản phẩm hàng đầu</p>
+            <div class="trusted__logos">
+              <span>VietStack</span>
+              <span>NextVision</span>
+              <span>HanoiOps</span>
+              <span>Saigon Data</span>
+              <span>CloudNative VN</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="solutions">
+          <div class="container">
+            <div class="section__header">
+              <span class="section__eyebrow">Solutions</span>
+              <h2>Từ realtime backend đến workflow AI-first</h2>
+              <p>Chọn mô-đun phù hợp để tăng tốc sản phẩm mà không cần xây dựng hạ tầng từ đầu.</p>
+            </div>
+            <div class="card-grid">
+              <article class="card">
+                <div class="card__shine" aria-hidden="true"></div>
+                <h3>Realtime customer 360</h3>
+                <p>Đồng bộ dữ liệu bán hàng, marketing và sản phẩm trong vài phút với pipeline realtime dựa trên Postgres logical replication.</p>
+                <div class="card__pills">
+                  <span>Stream</span>
+                  <span>Warehouse</span>
+                  <span>Playbooks</span>
+                </div>
+                <a class="card__link" href="#platform">Khám phá →</a>
+              </article>
+              <article class="card">
+                <div class="card__shine" aria-hidden="true"></div>
+                <h3>Automation studio</h3>
+                <p>Thiết kế workflow không cần code, kích hoạt chiến dịch chăm sóc đa kênh với AI agent chạy trên dữ liệu của bạn.</p>
+                <div class="card__pills">
+                  <span>Journeys</span>
+                  <span>AI Assistants</span>
+                  <span>Integrations</span>
+                </div>
+                <a class="card__link" href="#platform">Khám phá →</a>
+              </article>
+              <article class="card">
+                <div class="card__shine" aria-hidden="true"></div>
+                <h3>Observability for AI</h3>
+                <p>Giám sát chất lượng mô hình, tỉ lệ thành công của prompt và hiệu quả vận hành theo thời gian thực.</p>
+                <div class="card__pills">
+                  <span>Tracing</span>
+                  <span>Feedback loop</span>
+                  <span>Dashboards</span>
+                </div>
+                <a class="card__link" href="#platform">Khám phá →</a>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="platform">
+          <div class="container platform">
+            <div class="platform__content">
+              <span class="section__eyebrow">Platform</span>
+              <h2>Build nhanh, scale linh hoạt</h2>
+              <p>
+                Kết hợp Postgres managed, Auth, Storage và Edge Functions trên cùng một UI. Mọi thứ được giám sát bằng bảng điều khiển realtime và có thể mở rộng bằng SDK open-source.
+              </p>
+              <ul>
+                <li>Auth với SSO, OTP, Magic Link, Row Level Security</li>
+                <li>Storage phân lớp, CDN edge và image transformation</li>
+                <li>CLI và Studio UI giúp triển khai chỉ trong vài phút</li>
+              </ul>
+              <div class="platform__actions">
+                <a class="button button--primary" href="#resources">Xem tài liệu</a>
+                <a class="button button--text" href="#enterprise">So sánh với giải pháp khác</a>
+              </div>
+            </div>
+            <div class="platform__preview" aria-hidden="true">
+              <div class="preview-card">
+                <div class="preview-card__header">
+                  <span>Deploy workflow</span>
+                  <span class="badge">Production</span>
+                </div>
+                <ul>
+                  <li>
+                    <span>Realtime stream</span>
+                    <span>Active</span>
+                  </li>
+                  <li>
+                    <span>Automation Studio</span>
+                    <span>4 runs/min</span>
+                  </li>
+                  <li>
+                    <span>Edge Functions</span>
+                    <span>27ms</span>
+                  </li>
+                  <li>
+                    <span>Storage CDN</span>
+                    <span>Regional</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="platform__orb" aria-hidden="true"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--muted" id="enterprise">
+          <div class="container feature-grid">
+            <article class="feature">
+              <span class="feature__eyebrow">Realtime as default</span>
+              <h3>Edge infrastructure</h3>
+              <p>Kết nối edge function, database và storage chỉ trong một cú click. Deploy từ Git và scale lên hàng triệu request tự động.</p>
+            </article>
+            <article class="feature">
+              <span class="feature__eyebrow">Open source DNA</span>
+              <h3>Dựa trên Postgres</h3>
+              <p>Toàn bộ nền tảng xây dựng từ công nghệ mở, dễ dàng tự host hoặc mở rộng bằng extension quen thuộc của hệ sinh thái Postgres.</p>
+            </article>
+            <article class="feature">
+              <span class="feature__eyebrow">Secure by design</span>
+              <h3>Enterprise security</h3>
+              <p>Chuẩn SOC2, SSO, ghi log chi tiết và chính sách dữ liệu linh hoạt giúp đội ngũ an tâm triển khai trong môi trường doanh nghiệp.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="pricing">
+          <div class="container">
+            <div class="section__header">
+              <span class="section__eyebrow">Pricing</span>
+              <h2>Linh hoạt theo từng giai đoạn phát triển</h2>
+              <p>Chỉ trả tiền khi bạn scale, miễn phí cho các dự án thử nghiệm và đội ngũ mới.</p>
+            </div>
+            <div class="pricing-grid">
+              <article class="pricing">
+                <div class="pricing__badge">Starter</div>
+                <h3>Miễn phí</h3>
+                <p>5 triệu sự kiện/tháng · 100 GB storage · Edge functions không giới hạn</p>
+                <a class="button button--ghost" href="#contact">Bắt đầu ngay</a>
+              </article>
+              <article class="pricing">
+                <div class="pricing__badge">Growth</div>
+                <h3>$49</h3>
+                <p>Giới hạn linh hoạt, alert realtime, hỗ trợ triển khai 1-1</p>
+                <a class="button button--ghost" href="#contact">Nâng cấp</a>
+              </article>
+              <article class="pricing">
+                <div class="pricing__badge">Enterprise</div>
+                <h3>Liên hệ</h3>
+                <p>SLA 99.99%, private region, hợp đồng tuỳ chỉnh và hỗ trợ 24/7</p>
+                <a class="button button--ghost" href="#contact">Trao đổi với chúng tôi</a>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--muted" id="resources">
+          <div class="container cta">
+            <div>
+              <span class="section__eyebrow">Resources</span>
+              <h2>Xây dựng sản phẩm tiếp theo trên Ngọc Tây IO</h2>
+              <p>
+                Thư viện template, hướng dẫn tích hợp SDK và cộng đồng builder giúp bạn giải quyết mọi bài toán realtime và automation.
+              </p>
+            </div>
+            <a class="button button--primary" href="mailto:hello@ngoctay.io.vn">Nhận tư vấn chuyên sâu</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container site-footer__inner">
+          <div class="site-footer__brand">
+            <div class="site-footer__logo">NT</div>
+            <div>
+              <p class="site-footer__title">Ngọc Tây IO Cloud</p>
+              <p class="site-footer__description">
+                Nền tảng dữ liệu realtime và workflow automation giúp đội ngũ Việt Nam triển khai sản phẩm AI trong vài ngày.
+              </p>
+            </div>
+          </div>
+          <div class="site-footer__grid">
+            <div class="site-footer__column">
+              <p class="site-footer__column-title">Sản phẩm</p>
+              <ul>
+                <li><a href="#platform" class="site-footer__link">Realtime Edge</a></li>
+                <li><a href="#solutions" class="site-footer__link">Automation Studio</a></li>
+                <li><a href="#enterprise" class="site-footer__link">Observability</a></li>
+              </ul>
+            </div>
+            <div class="site-footer__column">
+              <p class="site-footer__column-title">Nguồn lực</p>
+              <ul>
+                <li><a href="#resources" class="site-footer__link">Tài liệu kỹ thuật</a></li>
+                <li><a href="#changelog" class="site-footer__link">Bản cập nhật</a></li>
+                <li><a href="https://discord.gg" class="site-footer__link">Cộng đồng</a></li>
+              </ul>
+            </div>
+            <div class="site-footer__column">
+              <p class="site-footer__column-title">Công ty</p>
+              <ul>
+                <li><a href="#about" class="site-footer__link">Về Ngọc Tây</a></li>
+                <li><a href="#careers" class="site-footer__link">Tuyển dụng</a></li>
+                <li><a href="mailto:hello@ngoctay.io.vn" class="site-footer__link">Liên hệ</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="site-footer__bottom">
+          <div class="container site-footer__bottom-inner">
+            <p>© <span id="current-year"></span> Ngọc Tây IO. Crafted for builders.</p>
+            <div class="site-footer__legal">
+              <a href="#privacy">Bảo mật</a>
+              <a href="#terms">Điều khoản</a>
+              <a href="#status">Status</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
