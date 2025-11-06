@@ -8,18 +8,18 @@ import { SiteFooter } from "@/components/SiteFooter";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: "Ngọc Tây IO",
+  title: "Ngọc Tây IO Cloud",
   description:
-    "Khám phá hệ sinh thái công cụ AI cho doanh nghiệp và cá nhân Việt Nam.",
+    "Hạ tầng realtime, workflow automation và bộ công cụ AI-first lấy cảm hứng từ Supabase, tối ưu cho đội ngũ Việt Nam.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="vi" className={inter.variable}>
-      <body className="text-slate-900">
+      <body className="app-body">
         <div className="app-shell">
           <SiteHeader />
-          <div className="main-content">{children}</div>
+          <main>{children}</main>
           <SiteFooter />
         </div>
       </body>
