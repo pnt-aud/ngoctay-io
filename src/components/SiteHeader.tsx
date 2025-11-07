@@ -29,6 +29,8 @@ type SimpleNavItem = {
 
 type NavigationItem = DropdownNavItem | SimpleNavItem;
 
+const toSectionHref = (section: string) => `/#${section}`;
+
 const navigation: NavigationItem[] = [
   {
     id: "products",
@@ -37,32 +39,32 @@ const navigation: NavigationItem[] = [
       {
         title: "SalesFlow CRM",
         description: "Quản lý khách hàng và pipeline bán hàng",
-        href: "#solutions",
+        href: toSectionHref("solutions"),
       },
       {
         title: "FinTrack",
         description: "Phân tích tài chính và báo cáo chi tiết",
-        href: "#solutions",
+        href: toSectionHref("solutions"),
       },
       {
         title: "NoteZen",
         description: "Ghi chú thông minh với AI",
-        href: "#platform",
+        href: toSectionHref("platform"),
       },
       {
         title: "OpsSync",
         description: "Đồng bộ và tự động hóa quy trình",
-        href: "#platform",
+        href: toSectionHref("platform"),
       },
       {
         title: "ContentSpark",
         description: "Tạo nội dung marketing tự động",
-        href: "#platform",
+        href: toSectionHref("platform"),
       },
       {
         title: "Insight360",
         description: "Business intelligence và analytics",
-        href: "#enterprise",
+        href: toSectionHref("enterprise"),
       },
     ],
   },
@@ -73,37 +75,37 @@ const navigation: NavigationItem[] = [
       {
         title: "Cho Doanh nghiệp SME",
         description: "Giải pháp tối ưu cho doanh nghiệp vừa và nhỏ",
-        href: "#solutions",
+        href: toSectionHref("solutions"),
       },
       {
         title: "Cho Startup",
         description: "Hỗ trợ khởi nghiệp phát triển nhanh",
-        href: "#solutions",
+        href: toSectionHref("solutions"),
       },
       {
         title: "Cho E-commerce",
         description: "Tối ưu hóa vận hành cửa hàng online",
-        href: "#platform",
+        href: toSectionHref("platform"),
       },
       {
         title: "Cho Agency",
         description: "Quản lý dự án và khách hàng hiệu quả",
-        href: "#platform",
+        href: toSectionHref("platform"),
       },
       {
         title: "Tự động hóa Marketing",
         description: "Chiến dịch marketing thông minh",
-        href: "#platform",
+        href: toSectionHref("platform"),
       },
       {
         title: "Tích hợp hệ thống",
         description: "Kết nối tất cả công cụ của bạn",
-        href: "#enterprise",
+        href: toSectionHref("enterprise"),
       },
     ],
   },
-  { id: "pricing", label: "Bảng giá", href: "#pricing" },
-  { id: "enterprise", label: "Enterprise", href: "#enterprise" },
+  { id: "pricing", label: "Bảng giá", href: toSectionHref("pricing") },
+  { id: "enterprise", label: "Enterprise", href: toSectionHref("enterprise") },
 ];
 
 const hasDropdown = (item: NavigationItem): item is DropdownNavItem => "items" in item;
