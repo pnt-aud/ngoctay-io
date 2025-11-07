@@ -3,169 +3,393 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NgocTay Interface Header</title>
-    <meta name="description" content="Header giao diện tối với điều hướng đa cấp và drawer di động." />
+    <title>NgocTay.io — Tăng tốc chuyển đổi số</title>
+    <meta
+      name="description"
+      content="NgocTay.io tư vấn và triển khai giải pháp số hóa toàn diện cho doanh nghiệp Việt: chiến lược, tự động hóa, dữ liệu và vận hành."
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <a class="skip-link" href="#main">Bỏ qua nội dung và đến thẳng phần chính</a>
+    <a class="skip-link" href="#main">Bỏ qua nội dung chính</a>
+    <div class="nav-overlay" data-nav-overlay></div>
     <header class="site-header" data-header>
-      <div class="site-header__container container">
-        <a href="#" class="site-header__brand" aria-label="NgocTay">
-          <span class="site-header__logo" aria-hidden="true">NgocTay</span>
+      <div class="container site-header__inner">
+        <a class="site-header__brand" href="#gioi-thieu" aria-label="Trang chủ NgocTay.io">
+          <span class="site-header__logo" aria-hidden="true">NgocTay.io</span>
         </a>
-
-        <nav class="primary-nav" aria-label="Điều hướng chính">
-          <ul class="primary-nav__list">
-            <li class="primary-nav__item">
-              <a class="primary-nav__link" href="#dich-vu">Dịch vụ</a>
-            </li>
-            <li class="primary-nav__item primary-nav__item--has-dropdown" data-dropdown>
-              <button
-                class="primary-nav__link primary-nav__link--trigger"
-                type="button"
-                aria-expanded="false"
-                aria-haspopup="true"
-                aria-controls="menu-san-pham"
-                data-dropdown-trigger
-              >
-                Sản phẩm
-                <svg class="primary-nav__caret" aria-hidden="true" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" /></svg>
-              </button>
-              <div class="dropdown" id="menu-san-pham" role="menu" data-dropdown-menu>
-                <a class="dropdown__item" href="#goi-co-ban" role="menuitem" tabindex="-1">
-                  <span class="dropdown__item-title">Gói cơ bản</span>
-                  <span class="dropdown__item-desc">Hạ tầng tiêu chuẩn cho startup và đội nhỏ.</span>
-                </a>
-                <a class="dropdown__item" href="#goi-nang-cao" role="menuitem" tabindex="-1">
-                  <span class="dropdown__item-title">Gói nâng cao</span>
-                  <span class="dropdown__item-desc">Tích hợp realtime, automation và hỗ trợ 24/7.</span>
-                </a>
-              </div>
-            </li>
-            <li class="primary-nav__item">
-              <a class="primary-nav__link" href="#bang-gia">Bảng giá</a>
-            </li>
-            <li class="primary-nav__item">
-              <a class="primary-nav__link" href="#enterprise">Enterprise</a>
-            </li>
-          </ul>
-        </nav>
-
-        <div class="site-header__actions">
-          <button class="site-header__search-trigger" type="button" data-search-trigger>
-            <span class="visually-hidden">Mở tìm kiếm</span>
-            <svg viewBox="0 0 20 20" aria-hidden="true">
-              <path
-                d="M13.5 12.3a6 6 0 1 0-1.2 1.2l3.7 3.7 1.2-1.2-3.7-3.7Zm-5.5.7a4.2 4.2 0 1 1 0-8.4 4.2 4.2 0 0 1 0 8.4Z"
-              />
-            </svg>
-          </button>
-          <a class="button button--primary" href="#lien-he">Liên hệ</a>
-        </div>
-
-        <button
-          class="site-header__toggle"
-          type="button"
-          aria-label="Mở điều hướng"
-          aria-controls="mobile-drawer"
-          aria-expanded="false"
-          data-drawer-toggle
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-    </header>
-
-    <div class="drawer" data-drawer aria-hidden="true">
-      <div class="drawer__backdrop" data-drawer-close></div>
-      <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title" id="mobile-drawer">
-        <div class="drawer__header">
-          <p id="drawer-title">Điều hướng</p>
-          <button class="drawer__close" type="button" data-drawer-close>
+        <nav class="site-nav" id="site-nav" data-nav aria-label="Điều hướng chính">
+          <button class="site-nav__close" type="button" data-nav-close>
             <span class="visually-hidden">Đóng menu</span>
             <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" /></svg>
           </button>
-        </div>
-        <nav class="drawer__nav" aria-label="Điều hướng di động">
-          <a class="drawer__link" href="#dich-vu">Dịch vụ</a>
-          <div class="drawer__accordion" data-accordion>
-            <button
-              class="drawer__accordion-trigger"
-              type="button"
-              aria-expanded="false"
-              aria-controls="drawer-san-pham"
-              data-accordion-trigger
-            >
-              Sản phẩm
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" /></svg>
-            </button>
-            <div class="drawer__accordion-panel" id="drawer-san-pham" hidden>
-              <a class="drawer__sub-link" href="#goi-co-ban">Gói cơ bản</a>
-              <a class="drawer__sub-link" href="#goi-nang-cao">Gói nâng cao</a>
-            </div>
+          <ul class="site-nav__list">
+            <li><a data-nav-link href="#gioi-thieu">Giới thiệu</a></li>
+            <li><a data-nav-link href="#dich-vu">Dịch vụ</a></li>
+            <li><a data-nav-link href="#cong-cu">Công cụ</a></li>
+            <li><a data-nav-link href="#quy-trinh">Quy trình</a></li>
+            <li><a data-nav-link href="#khach-hang">Khách hàng</a></li>
+            <li><a data-nav-link href="#bang-gia">Bảng giá</a></li>
+          </ul>
+          <div class="site-nav__cta">
+            <a class="button button--primary" href="#lien-he">Nhận tư vấn miễn phí</a>
           </div>
-          <a class="drawer__link" href="#bang-gia">Bảng giá</a>
-          <a class="drawer__link" href="#enterprise">Enterprise</a>
         </nav>
-        <a class="button button--primary drawer__cta" href="#lien-he">Liên hệ</a>
-      </aside>
-    </div>
-
-    <div class="search-panel" data-search aria-hidden="true">
-      <div class="search-panel__backdrop" data-search-close></div>
-      <div class="search-panel__dialog" role="dialog" aria-modal="true" aria-labelledby="search-title">
-        <div class="search-panel__header">
-          <h2 id="search-title">Tìm kiếm</h2>
-          <button class="search-panel__close" type="button" data-search-close>
-            <span class="visually-hidden">Đóng tìm kiếm</span>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" /></svg>
+        <div class="site-header__actions">
+          <a class="button button--ghost" href="#lien-he">Liên hệ</a>
+          <button class="site-header__toggle" type="button" data-nav-toggle aria-label="Mở menu" aria-controls="site-nav">
+            <span></span>
+            <span></span>
+            <span></span>
           </button>
         </div>
-        <form class="search-panel__form" role="search">
-          <label class="visually-hidden" for="site-search">Nhập nội dung tìm kiếm</label>
-          <input id="site-search" name="search" type="search" placeholder="Tìm nhanh nội dung..." />
-        </form>
-        <p class="search-panel__hint">Nhấn Esc để đóng • Phím / để mở</p>
       </div>
-    </div>
+    </header>
 
-    <main id="main" class="page-content">
-      <section class="hero" id="dich-vu">
-        <div class="container">
-          <h1>Header giao diện tối cho NgocTay</h1>
-          <p>
-            Mẫu trang minh họa cách xây dựng header sticky với dropdown đa cấp, hỗ trợ keyboard và drawer di động theo yêu cầu.
-          </p>
+    <main id="main">
+      <section class="hero" id="gioi-thieu" tabindex="-1">
+        <div class="container hero__inner" data-reveal>
+          <div class="hero__content">
+            <p class="eyebrow">Đối tác chuyển đổi số toàn diện</p>
+            <h1>Triển khai nhanh, đo lường được kết quả và mở rộng bền vững.</h1>
+            <p class="lead">
+              Từ chiến lược đến vận hành, đội ngũ NgocTay.io giúp doanh nghiệp tự tin mở rộng hệ thống số hóa với
+              trải nghiệm khách hàng xuất sắc và quy trình tối ưu.
+            </p>
+            <div class="hero__actions">
+              <a class="button button--primary" href="#dich-vu">Khám phá giải pháp</a>
+              <a class="button button--outline" href="#lien-he">Đặt lịch tư vấn</a>
+            </div>
+            <dl class="hero-metrics">
+              <div>
+                <dt>+120%</dt>
+                <dd>Tăng trưởng doanh thu trung bình sau 6 tháng triển khai.</dd>
+              </div>
+              <div>
+                <dt>98%</dt>
+                <dd>Khách hàng giữ hợp đồng dịch vụ dài hạn với NgocTay.io.</dd>
+              </div>
+              <div>
+                <dt>4 tuần</dt>
+                <dd>Thời gian trung bình đưa giải pháp đầu tiên vào vận hành.</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="hero__visual" aria-hidden="true">
+            <div class="hero__orb hero__orb--one"></div>
+            <div class="hero__orb hero__orb--two"></div>
+            <div class="hero__grid">
+              <div class="hero__tile">
+                <span>Tự động hóa</span>
+                <strong>Workflow không giấy tờ</strong>
+              </div>
+              <div class="hero__tile">
+                <span>Khách hàng</span>
+                <strong>Trải nghiệm cá nhân hóa</strong>
+              </div>
+              <div class="hero__tile">
+                <span>Dữ liệu</span>
+                <strong>Bảng điều khiển realtime</strong>
+              </div>
+              <div class="hero__tile">
+                <span>Vận hành</span>
+                <strong>Chỉ số minh bạch</strong>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-      <section class="section" id="goi-co-ban">
-        <div class="container">
-          <h2>Gói cơ bản</h2>
-          <p>Hạ tầng tiêu chuẩn để bắt đầu nhanh chóng với độ tin cậy cao.</p>
+
+      <section class="section features" id="dich-vu" tabindex="-1">
+        <div class="container" data-reveal>
+          <header class="section__header">
+            <p class="eyebrow">Dịch vụ trọng tâm</p>
+            <h2>Đi thẳng vào giá trị cốt lõi của doanh nghiệp bạn</h2>
+            <p>
+              Chúng tôi đồng hành từ giai đoạn khảo sát đến vận hành ổn định, đảm bảo mọi hạng mục đều được đo lường và
+              cải tiến liên tục.
+            </p>
+          </header>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <div class="feature-card__icon" aria-hidden="true">📊</div>
+              <h3>Chiến lược dữ liệu &amp; BI</h3>
+              <p>
+                Thiết kế kho dữ liệu tập trung, chuẩn hóa quy trình thu thập, và xây dashboard realtime cho lãnh đạo ra
+                quyết định.
+              </p>
+              <ul>
+                <li>Data lake &amp; pipeline</li>
+                <li>Dashboards đa tầng</li>
+                <li>Đào tạo nội bộ</li>
+              </ul>
+            </article>
+            <article class="feature-card">
+              <div class="feature-card__icon" aria-hidden="true">🤖</div>
+              <h3>Tự động hóa marketing</h3>
+              <p>
+                Kết nối CRM, email, quảng cáo và đội sales trong một luồng thống nhất, giảm thao tác thủ công và tăng
+                tỉ lệ chuyển đổi.
+              </p>
+              <ul>
+                <li>Phễu đa kênh</li>
+                <li>Hệ thống lead scoring</li>
+                <li>Workflow cá nhân hóa</li>
+              </ul>
+            </article>
+            <article class="feature-card">
+              <div class="feature-card__icon" aria-hidden="true">🛠️</div>
+              <h3>Phát triển sản phẩm số</h3>
+              <p>
+                Từ prototype đến sản phẩm hoàn chỉnh với kiến trúc linh hoạt, tuân thủ bảo mật và khả năng mở rộng theo
+                nhu cầu tăng trưởng.
+              </p>
+              <ul>
+                <li>UI/UX theo hành trình</li>
+                <li>Hệ thống microservice</li>
+                <li>Kiểm thử &amp; DevOps</li>
+              </ul>
+            </article>
+          </div>
         </div>
       </section>
-      <section class="section" id="goi-nang-cao">
-        <div class="container">
-          <h2>Gói nâng cao</h2>
-          <p>Tích hợp realtime, automation và hỗ trợ chuyên sâu 24/7 cho doanh nghiệp.</p>
+
+      <section class="section tools" id="cong-cu" tabindex="-1">
+        <div class="container" data-reveal>
+          <div class="section__header">
+            <p class="eyebrow">Hệ sinh thái công cụ</p>
+            <h2>Tương thích với nền tảng bạn đang sử dụng</h2>
+            <p>
+              NgocTay.io tích hợp liền mạch với những giải pháp SaaS phổ biến, đồng thời xây dựng tiện ích riêng để đáp
+              ứng nhu cầu đặc thù.
+            </p>
+          </div>
+          <div class="tool-grid">
+            <div class="tool-card">
+              <h3>CRM &amp; CS</h3>
+              <p>HubSpot, Salesforce, Freshdesk</p>
+            </div>
+            <div class="tool-card">
+              <h3>Data &amp; BI</h3>
+              <p>BigQuery, Power BI, Metabase</p>
+            </div>
+            <div class="tool-card">
+              <h3>Tự động hóa</h3>
+              <p>Make, Zapier, n8n</p>
+            </div>
+            <div class="tool-card">
+              <h3>Cloud</h3>
+              <p>GCP, AWS, Azure</p>
+            </div>
+            <div class="tool-card">
+              <h3>Marketing</h3>
+              <p>Facebook Ads, Google Ads, TikTok</p>
+            </div>
+            <div class="tool-card">
+              <h3>Vận hành nội bộ</h3>
+              <p>Notion, ClickUp, Slack</p>
+            </div>
+          </div>
         </div>
       </section>
-      <section class="section" id="bang-gia">
-        <div class="container">
-          <h2>Bảng giá</h2>
-          <p>Tùy chỉnh linh hoạt theo từng giai đoạn phát triển.</p>
+
+      <section class="section timeline" id="quy-trinh" tabindex="-1">
+        <div class="container" data-reveal>
+          <header class="section__header">
+            <p class="eyebrow">Quy trình 4 giai đoạn</p>
+            <h2>Triển khai khoa học, đồng hành sát sao</h2>
+          </header>
+          <ol class="timeline__list">
+            <li>
+              <div class="timeline__marker">1</div>
+              <div class="timeline__content">
+                <h3>Khảo sát &amp; thiết kế mục tiêu</h3>
+                <p>
+                  Workshop cùng đội ngũ của bạn để thống nhất vấn đề, KPI và phạm vi triển khai trong 2 tuần đầu tiên.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="timeline__marker">2</div>
+              <div class="timeline__content">
+                <h3>Xây dựng kiến trúc giải pháp</h3>
+                <p>
+                  Lên blueprint hệ thống, phân bổ nguồn lực, lựa chọn công nghệ và dự trù ngân sách chi tiết cho từng
+                  hạng mục.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="timeline__marker">3</div>
+              <div class="timeline__content">
+                <h3>Triển khai &amp; chuyển giao</h3>
+                <p>
+                  Thiết lập công cụ, phát triển tính năng, kết nối dữ liệu và đào tạo đội ngũ nội bộ vận hành độc lập.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="timeline__marker">4</div>
+              <div class="timeline__content">
+                <h3>Tối ưu &amp; mở rộng</h3>
+                <p>
+                  Đo lường KPI định kỳ, A/B testing chiến dịch, đề xuất cải tiến liên tục để đảm bảo hiệu quả dài hạn.
+                </p>
+              </div>
+            </li>
+          </ol>
         </div>
       </section>
-      <section class="section" id="enterprise">
-        <div class="container">
-          <h2>Enterprise</h2>
-          <p>Giải pháp chuyên biệt cho tập đoàn lớn với SLA cao và hỗ trợ tận tâm.</p>
+
+      <section class="section testimonials" id="khach-hang" tabindex="-1">
+        <div class="container" data-reveal>
+          <header class="section__header">
+            <p class="eyebrow">Khách hàng nói gì</p>
+            <h2>Giải pháp thực chiến cho nhiều ngành</h2>
+          </header>
+          <div class="testimonial-grid">
+            <article class="testimonial-card">
+              <p>
+                “Sau 3 tháng hợp tác, chúng tôi đã có hệ thống phân bổ ngân sách marketing tự động và minh bạch theo từng
+                chiến dịch. Đội ngũ phản hồi cực nhanh và chi tiết.”
+              </p>
+              <footer>
+                <strong>Lan Anh</strong>
+                <span>CMO, EduNext</span>
+              </footer>
+            </article>
+            <article class="testimonial-card">
+              <p>
+                “Báo cáo realtime từ kho dữ liệu mới giúp các chi nhánh cập nhật doanh thu hàng giờ. Ban điều hành có
+                thể ra quyết định ngay mà không chờ báo cáo thủ công.”
+              </p>
+              <footer>
+                <strong>Quang Minh</strong>
+                <span>COO, RetailPlus</span>
+              </footer>
+            </article>
+            <article class="testimonial-card">
+              <p>
+                “Quy trình hỗ trợ khách hàng tự động hóa giảm 40% lượng ticket và tăng NPS lên 62. NgocTay.io là đối tác
+                chiến lược dài hạn của chúng tôi.”
+              </p>
+              <footer>
+                <strong>Huyền Trân</strong>
+                <span>Giám đốc CS, FinServe</span>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section pricing" id="bang-gia" tabindex="-1">
+        <div class="container" data-reveal>
+          <header class="section__header">
+            <p class="eyebrow">Bảng giá minh bạch</p>
+            <h2>Lộ trình phù hợp cho từng giai đoạn phát triển</h2>
+          </header>
+          <div class="pricing-grid">
+            <article class="pricing-card">
+              <p class="pricing-card__plan">Starter</p>
+              <p class="pricing-card__price">15 triệu/tháng</p>
+              <p>Thích hợp với startup và SME bắt đầu số hóa.</p>
+              <ul>
+                <li>01 quy trình tự động hóa</li>
+                <li>Dashboard KPI cơ bản</li>
+                <li>Hỗ trợ online trong giờ hành chính</li>
+              </ul>
+              <a class="button button--outline" href="#lien-he">Đăng ký</a>
+            </article>
+            <article class="pricing-card pricing-card--featured">
+              <p class="pricing-card__plan">Growth</p>
+              <p class="pricing-card__price">35 triệu/tháng</p>
+              <p>Gói phổ biến cho doanh nghiệp đang mở rộng thị trường.</p>
+              <ul>
+                <li>03 quy trình tự động hóa</li>
+                <li>Kho dữ liệu và báo cáo nâng cao</li>
+                <li>Chuyên gia onsite 2 ngày/tháng</li>
+              </ul>
+              <a class="button button--primary" href="#lien-he">Nhận tư vấn</a>
+            </article>
+            <article class="pricing-card">
+              <p class="pricing-card__plan">Enterprise</p>
+              <p class="pricing-card__price">Theo dự án</p>
+              <p>Thiết kế riêng cho tập đoàn và doanh nghiệp đa quốc gia.</p>
+              <ul>
+                <li>Blueprint toàn hệ thống</li>
+                <li>Tích hợp bảo mật nâng cao</li>
+                <li>Đội ngũ chuyên trách 24/7</li>
+              </ul>
+              <a class="button button--outline" href="#lien-he">Trao đổi nhu cầu</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta" id="lien-he" tabindex="-1">
+        <div class="container" data-reveal>
+          <div class="cta__inner">
+            <div class="cta__content">
+              <p class="eyebrow">Sẵn sàng bắt đầu?</p>
+              <h2>Đặt lịch tư vấn chiến lược miễn phí trong tuần này</h2>
+              <p>
+                Chia sẻ bài toán kinh doanh của bạn, NgocTay.io sẽ đề xuất roadmap cụ thể và kế hoạch triển khai phù hợp
+                với ngân sách.
+              </p>
+            </div>
+            <form class="cta__form">
+              <label class="visually-hidden" for="contact-name">Tên của bạn</label>
+              <input id="contact-name" name="name" type="text" placeholder="Họ và tên" required />
+              <label class="visually-hidden" for="contact-email">Email công việc</label>
+              <input id="contact-email" name="email" type="email" placeholder="Email công việc" required />
+              <label class="visually-hidden" for="contact-message">Mục tiêu triển khai</label>
+              <textarea id="contact-message" name="message" placeholder="Mục tiêu triển khai chính"></textarea>
+              <button class="button button--primary" type="submit">Gửi yêu cầu</button>
+              <p class="cta__disclaimer">Chúng tôi phản hồi trong 24 giờ làm việc.</p>
+            </form>
+          </div>
         </div>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <div>
+          <a class="site-footer__brand" href="#gioi-thieu">NgocTay.io</a>
+          <p>
+            Đồng hành cùng doanh nghiệp Việt kiến tạo hệ thống số hóa hiện đại, lấy khách hàng làm trung tâm và đo lường
+            được kết quả.
+          </p>
+        </div>
+        <div class="site-footer__grid">
+          <div>
+            <h3>Liên hệ</h3>
+            <ul>
+              <li><a href="mailto:hello@ngoctay.io">hello@ngoctay.io</a></li>
+              <li><a href="tel:+8488889999">(+84) 888 89 999</a></li>
+              <li>Mon - Fri • 08:30 - 18:00</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Dịch vụ</h3>
+            <ul>
+              <li><a href="#dich-vu">Tư vấn chiến lược</a></li>
+              <li><a href="#dich-vu">Tự động hóa marketing</a></li>
+              <li><a href="#dich-vu">Triển khai sản phẩm số</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Kết nối</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></li>
+              <li><a href="https://www.facebook.com" target="_blank" rel="noreferrer">Facebook</a></li>
+              <li><a href="https://www.youtube.com" target="_blank" rel="noreferrer">YouTube</a></li>
+            </ul>
+          </div>
+        </div>
+        <p class="site-footer__meta">© <span data-year></span> NgocTay.io. All rights reserved.</p>
+      </div>
+    </footer>
 
     <script src="app.js" defer></script>
   </body>
