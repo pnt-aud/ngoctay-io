@@ -90,6 +90,7 @@ main {
 .site-header {
   position: relative;
   z-index: 50;
+  --mobile-menu-offset: 0px;
 }
 
 .top-header {
@@ -346,7 +347,7 @@ main {
 
 .mobile-menu {
   position: fixed;
-  top: 0;
+  top: var(--mobile-menu-offset, 0px);
   left: 0;
   right: 0;
   bottom: 0;

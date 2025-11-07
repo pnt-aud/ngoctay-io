@@ -2,7 +2,14 @@
 
 import clsx from "clsx";
 import Link from "next/link";
-import { type MouseEvent, useEffect, useRef, useState } from "react";
+import {
+  type CSSProperties,
+  type MouseEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 type DropdownNavItem = {
   id: string;
@@ -209,8 +216,26 @@ export function SiteHeader() {
     };
 
     updateOffset();
-    window.addEventListener("resize", updateOffset);
-    return () => window.removeEventListener("resize", updateOffset);
+
+    const resizeHandler = () => updateOffset();
+    window.addEventListener("resize", resizeHandler);
+
+    let observer: ResizeObserver | undefined;
+
+    if (typeof ResizeObserver !== "undefined") {
+      observer = new ResizeObserver(updateOffset);
+      if (topHeaderRef.current) {
+        observer.observe(topHeaderRef.current);
+      }
+      if (mainHeaderRef.current) {
+        observer.observe(mainHeaderRef.current);
+      }
+    }
+
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+      observer?.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -232,6 +257,16 @@ export function SiteHeader() {
   };
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+  const mobileMenuStyles = useMemo(() => {
+    if (mobileMenuOffset == null) {
+      return undefined;
+    }
+
+    return {
+      "--mobile-menu-offset": `${mobileMenuOffset}px`,
+    } satisfies CSSProperties;
+  }, [mobileMenuOffset]);
 
   return (
     <div className="site-header">
@@ -319,7 +354,7 @@ export function SiteHeader() {
 
       <div
         className={clsx("mobile-menu", isMobileMenuOpen && "is-open")}
-        style={mobileMenuOffset ? { top: mobileMenuOffset } : undefined}
+        style={mobileMenuStyles}
       >
         <div className="mobile-menu__content">
           <ul className="mobile-menu__list">

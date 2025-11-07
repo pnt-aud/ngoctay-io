@@ -17,6 +17,7 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@types/node": "^20.17.7",
     "@cloudflare/next-on-pages": "^1",
     "wrangler": "^3",
     "typescript": "^5.6.3",
